@@ -1,18 +1,27 @@
 package com.laratecsys.inpaktaService.Domain.Redatasense;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
-public class DataResult {
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Entity
+public class DataResult implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	Integer id_data;
-	Integer run_id;
+	String run_id;
+	@JsonFormat(pattern = "dd/MM/yy HH:mm")
 	Date	run_timestamp;
 	String 	schema_name;
 	String 	table_name;
@@ -33,9 +42,10 @@ public class DataResult {
 		
 	}
 
-	public DataResult(Integer id_data, Integer run_id, Date run_timestamp, String schema_name, String table_name,
+
+	public DataResult(Integer id_data, String run_id, Date run_timestamp, String schema_name, String table_name,
 			String column_name, double probability, String model, String model_mode, String dictionary,
-			Integer num_rows, Integer score, String sample_data) {
+			Integer num_rows, Integer score, String sample_data, DbProperties dbProperties) {
 		super();
 		this.id_data = id_data;
 		this.run_id = run_id;
@@ -50,7 +60,9 @@ public class DataResult {
 		this.num_rows = num_rows;
 		this.score = score;
 		this.sample_data = sample_data;
+		this.dbProperties = dbProperties;
 	}
+
 
 	public Integer getId_data() {
 		return id_data;
@@ -59,12 +71,13 @@ public class DataResult {
 	public void setId_data(Integer id_data) {
 		this.id_data = id_data;
 	}
+	
 
-	public Integer getRun_id() {
+	public String getRun_id() {
 		return run_id;
 	}
 
-	public void setRun_id(Integer run_id) {
+	public void setRun_id(String run_id) {
 		this.run_id = run_id;
 	}
 
@@ -160,8 +173,8 @@ public class DataResult {
 		return dbProperties;
 	}
 
-	public void setDbProperties(DbProperties dbProperties) {
-		this.dbProperties = dbProperties;
+	public void setDbProperties(DbProperties optional) {
+		this.dbProperties = optional;
 	}
 
 	@Override

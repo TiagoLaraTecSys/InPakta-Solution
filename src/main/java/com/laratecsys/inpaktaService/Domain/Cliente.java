@@ -1,9 +1,16 @@
 package com.laratecsys.inpaktaService.Domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 
 @Entity
 public class Cliente {
@@ -14,6 +21,9 @@ public class Cliente {
 	private String nome;
 	private String sobNome;
 	private String email;
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<DbProperties> dbProperties = new ArrayList<>();
 	
 	public Cliente() {
 		
@@ -50,6 +60,15 @@ public class Cliente {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	public List<DbProperties> getDbProperties() {
+		return dbProperties;
+	}
+
+	public void setDbProperties(List<DbProperties> dbProperties) {
+		this.dbProperties = dbProperties;
 	}
 
 	@Override

@@ -11,32 +11,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.laratecsys.inpaktaService.Domain.Redatasense.DataResult;
-import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DataResultDTO;
-import com.laratecsys.inpaktaService.Service.DataResultService;
+import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
+import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DbPropertiesDTO;
+import com.laratecsys.inpaktaService.Service.DbPropertiesService;
 
 @RestController
-@RequestMapping(value = "/dataresult")
-public class DataResultResources {
+@RequestMapping(value = "/dbproperties")
+public class DbPropertiesResources {
 
 	@Autowired
-	private DataResultService dataResultService;
+	private DbPropertiesService dbPropertiesService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<DataResult> findById(@PathVariable Integer id) {
+	public ResponseEntity<DbProperties> findById(@PathVariable Integer id) {
 		
-		DataResult obj = dataResultService.findById(id);
+		DbProperties obj = dbPropertiesService.findById(id);
 		return ResponseEntity.ok().body(obj);
 		
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody DataResultDTO objDto){
-	
-		DataResult obj = dataResultService.fromDTO(objDto);
-		obj = dataResultService.insert(obj);
+	public ResponseEntity<Void> insert(@RequestBody DbPropertiesDTO objDto){
+		
+		DbProperties obj = dbPropertiesService.fromDTO(objDto);
+		obj = dbPropertiesService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId_data()).toUri();
+				.path("/{id}").buildAndExpand(obj.getId_db()).toUri();
 		
 		return ResponseEntity.created(uri).build();
 	}

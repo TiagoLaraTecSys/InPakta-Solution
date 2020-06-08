@@ -3,14 +3,23 @@ package com.laratecsys.inpaktaService.Domain.Redatasense;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.laratecsys.inpaktaService.Domain.Cliente;
 
 @Entity
 public class DbProperties {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	Integer id_db;
 	String	repository_name;
 	String	vendor;
@@ -21,12 +30,31 @@ public class DbProperties {
 	String	url;
 	Integer	isActive;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "dbProperties",cascade = CascadeType.ALL)
 	private List<DataResult> resultados = new ArrayList<>();
 	
+	@ManyToOne()
+	@JoinColumn(name = "cliente_id")
+	@JsonIgnore
+	private Cliente cliente;
 	
 	public DbProperties() {
 		
+	}
+
+	public DbProperties(Integer id_db, String repository_name, String vendor, String driver, String username,
+			String password, String dbschema, String url, Integer isActive,	Cliente cliente) {
+		super();
+		this.id_db = id_db;
+		this.repository_name = repository_name;
+		this.vendor = vendor;
+		this.driver = driver;
+		this.username = username;
+		this.password = password;
+		this.dbschema = dbschema;
+		this.url = url;
+		this.isActive = isActive;
+		this.cliente = cliente;
 	}
 
 	public DbProperties(Integer id_db, String repository_name, String vendor, String driver, String username,
@@ -121,6 +149,14 @@ public class DbProperties {
 
 	public void setResultados(List<DataResult> resultados) {
 		this.resultados = resultados;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
