@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
@@ -21,6 +22,10 @@ public class InpaktaServiceApplication implements CommandLineRunner {
 	@Autowired
 	private DbPropertiesRepositories dbPropertiesRepositories;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(InpaktaServiceApplication.class, args);
 	}
@@ -28,7 +33,7 @@ public class InpaktaServiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Cliente teste = new Cliente(null, "Tiago", "de Lara Ribeiro", "tiagolararibeiro1998@gmail.com");
+		Cliente teste = new Cliente(null, "Tiago", "de Lara Ribeiro", "tiagolararibeiro1998@gmail.com",pe.encode("1234"));
 		
 		DbProperties newDbProperties = new DbProperties(null,"", "mysql", "com.mysql.jdbc.Driver", "inpakt79_root", "1s1@f23ty",
 				"inpakt79_inpaktdb", "jdbc:mysql://inpakta.com.br/inpakt79_inpaktdb",1,teste);

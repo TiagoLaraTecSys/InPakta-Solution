@@ -1,16 +1,25 @@
 package com.laratecsys.inpaktaService.Domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
+import com.laratecsys.inpaktaService.Enum.Perfil;
+import com.laratecsys.inpaktaService.Enum.TipoCliente;
 
 @Entity
 public class Cliente {
@@ -21,21 +30,34 @@ public class Cliente {
 	private String nome;
 	private String sobNome;
 	private String email;
+	private String CpfOuCnpj;
+	private Integer tipoCliente;
+	
+	@JsonIgnore
+	private String senha;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<DbProperties> dbProperties = new ArrayList<>();
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "perfis")
+	private Set<Integer> perfis = new HashSet<>();
 	
 	public Cliente() {
 		
 	}
 	
-	public Cliente(Integer id, String nome, String sobNome, String email) {
+
+	public Cliente(Integer id, String nome, String sobNome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sobNome = sobNome;
 		this.email = email;
+		this.senha = senha;
+		
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -69,6 +91,46 @@ public class Cliente {
 
 	public void setDbProperties(List<DbProperties> dbProperties) {
 		this.dbProperties = dbProperties;
+	}
+
+	
+	public String getCpfOuCnpj() {
+		return CpfOuCnpj;
+	}
+
+
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		CpfOuCnpj = cpfOuCnpj;
+	}
+
+	
+
+	public TipoCliente getTipoCliente() {
+		return TipoCliente.toEnum(tipoCliente);
+	}
+
+
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente.getCod();
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	public Set<Perfil> getPerfis() {
+		
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
 	}
 
 	@Override

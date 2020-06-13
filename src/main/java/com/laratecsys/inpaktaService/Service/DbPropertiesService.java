@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DbPropertiesDTO;
+import com.laratecsys.inpaktaService.Enum.Perfil;
 import com.laratecsys.inpaktaService.Repositorie.DbPropertiesRepositories;
+import com.laratecsys.inpaktaService.Security.UserSS;
+import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
 import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
 @Service
@@ -22,9 +25,17 @@ public class DbPropertiesService {
 
 	public DbProperties findById(Integer id) {
 
-		Optional<DbProperties> newCli = dbPropertiesRepositories.findById(id);
+		Optional<DbProperties> newDbProperties = dbPropertiesRepositories.findById(id);
+		
+		Integer idUser = newDbProperties.get().getCliente().getId();
+		
+		UserSS userLogged = UserService.authenticated();
+		
+		if((userLogged==null || !userLogged.equals(Perfil.ADMIN)) && !userLogged.getId().equals(idUser)) {
+			throw new AuthorizationException("Usuário não autorizado");
+		}
 
-		return newCli.orElseThrow(() -> new ObjectNotFoundException(
+		return newDbProperties.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrador. ID:" + id + ", Tipo:" + DbProperties.class.getName()));
 	}
 
@@ -41,7 +52,7 @@ public class DbPropertiesService {
 
 	public DbProperties fromDTO(DbPropertiesDTO objDto) {
 		
-		Cliente newCliente = new Cliente(objDto.getCliente_id(), null, null, null);
+		Cliente newCliente = new Cliente(objDto.getCliente_id(), null, null, null,null);
 		DbProperties newDbProperties = new DbProperties(objDto.getId_db(), objDto.getRepository_name(),
 				objDto.getVendor(), objDto.getDriver(), objDto.getUsername(), objDto.getPassword(),
 				objDto.getDbschema(),objDto.getUrl(), objDto.getIsActive(), newCliente);

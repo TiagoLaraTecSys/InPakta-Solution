@@ -1,12 +1,25 @@
 package com.laratecsys.inpaktaService.Dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class ClienteDto {
 	
 	private Integer id;
-	
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	@Length(min=5, max=120, message = "Tamanho máximo 120 e mínimo 5")
 	private String nome;
+	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String sobNome;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	@Email
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	private String senha;
 	
 	public ClienteDto() {
 		
@@ -46,6 +59,16 @@ public class ClienteDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	
 	
 	
 

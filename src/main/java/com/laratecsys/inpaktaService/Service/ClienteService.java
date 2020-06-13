@@ -3,6 +3,7 @@ package com.laratecsys.inpaktaService.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
@@ -19,6 +20,9 @@ public class ClienteService {
 	@Autowired 
 	private EmailService emailService;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 	public Cliente findById(Integer id) {
 
 		Optional<Cliente> newCli = clienteRepositories.findById(id);
@@ -27,19 +31,32 @@ public class ClienteService {
 				"Objeto não encontrador. ID:" + id + ", Tipo:" + Cliente.class.getName()));
 	}
 
-	public Cliente insert(Cliente obj) {
+	public Cliente findByEmail(String email) {
 		
-		obj.setId(null);
-		clienteRepositories.save(obj);
+		Cliente novoCliente = new Cliente();
 		
-		emailService.sendInsertConfirmationHtmlEmail(obj);
+		novoCliente = clienteRepositories.findByEmail(email);
 		
-		return obj;
+		return novoCliente;
+	}
+	
+	public Cliente insert(Cliente clienteParametro) {
+		
+		Cliente novoCliente = findByEmail(clienteParametro.getEmail());
+		
+		if (novoCliente==null) {
+			clienteParametro.setId(null);
+			clienteRepositories.save(clienteParametro);
+		};
+		
+		emailService.sendInsertConfirmationHtmlEmail(clienteParametro);
+		
+		return clienteParametro;
 	}
 
 	public Cliente fromDTO(ClienteDto objDTO) {
 		
-		return new Cliente(objDTO.getId(),objDTO.getNome(),objDTO.getSobNome(),objDTO.getEmail());
+		return new Cliente(objDTO.getId(),objDTO.getNome(),objDTO.getSobNome(),objDTO.getEmail(),pe.encode(objDTO.getSenha()));
 	}
 
 }
