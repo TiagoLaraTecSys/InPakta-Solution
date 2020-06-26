@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class DataResult implements Serializable{
@@ -36,6 +37,7 @@ public class DataResult implements Serializable{
 	
 	@ManyToOne()
 	@JoinColumn(name = "id_db")
+	@JsonIgnore
 	private DbProperties dbProperties;
 	
 	public DataResult(){
