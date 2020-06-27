@@ -15,6 +15,8 @@ import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Dto.ClienteDto;
 import com.laratecsys.inpaktaService.Service.ClienteService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/cliente")
 public class ClienteResources {
@@ -22,6 +24,7 @@ public class ClienteResources {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@ApiOperation(value="Busca de um cliente pelo Id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
 		
@@ -30,6 +33,7 @@ public class ClienteResources {
 		
 	}
 	
+	@ApiOperation(value="Cadastro de um novo cliente")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody ClienteDto objDTO){
 		
