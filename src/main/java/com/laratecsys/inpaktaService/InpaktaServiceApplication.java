@@ -20,7 +20,7 @@ public class InpaktaServiceApplication{
 	private ClienteRepositories clienteRepositories;
 	
 	@Autowired
-	private DbPropertiesRepositories dbPropertiesRepositories;
+	DbPropertiesRepositories dbPropertiesRepositories;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
