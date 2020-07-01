@@ -1,6 +1,8 @@
 package com.laratecsys.inpaktaService.Resource;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +45,19 @@ public class ClienteResources {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/emails/andre", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> listingAllClientEmail(){
+		
+		List<String> objEmails = new ArrayList<>();
+		
+		for (Cliente cliente : clienteService.findAll()) {
+			
+			objEmails.add(cliente.getEmail());
+		}
+		
+		return ResponseEntity.ok().body(objEmails);
 	}
 	
 }
