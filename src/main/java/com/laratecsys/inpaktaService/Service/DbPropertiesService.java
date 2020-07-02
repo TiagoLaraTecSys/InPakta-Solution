@@ -1,5 +1,6 @@
 package com.laratecsys.inpaktaService.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,11 @@ public class DbPropertiesService {
 		return newDbProperties;
 	}
 
-
+	public List<DbProperties> findingAllDbPropertiesByClienteId(){
+		
+		UserSS userLoged = UserService.authenticated();
+		List<DbProperties> dbPropertiesList = dbPropertiesRepositories.findByClienteId(userLoged.getId());
+		
+		return dbPropertiesList;
+	}
 }

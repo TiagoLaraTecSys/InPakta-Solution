@@ -1,6 +1,7 @@
 package com.laratecsys.inpaktaService.Resource;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,13 @@ public class DbPropertiesResources {
 				.path("/{id}").buildAndExpand(obj.getId_db()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<DbProperties>> listingDbProperties(){
+		
+		List<DbProperties> dbPropertiesList = dbPropertiesService.findingAllDbPropertiesByClienteId();
+		return ResponseEntity.ok().body(dbPropertiesList);
 	}
 	
 }

@@ -9,5 +9,4 @@ import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 public interface DbPropertiesRepositories extends JpaRepository<DbProperties, Integer> {
 	
 	public List<DbProperties> findByClienteId(Integer id);
-
 }
