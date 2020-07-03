@@ -1,5 +1,7 @@
 package com.laratecsys.inpaktaService.Domain.Redatasense.DTO;
 
+import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
+
 public class DbPropertiesDTO {
 	
 	Integer id_db;
@@ -12,6 +14,7 @@ public class DbPropertiesDTO {
 	String	url;
 	Integer	isActive;
 	Integer cliente_id;
+	
 	
 	public DbPropertiesDTO() {
 		
@@ -30,6 +33,19 @@ public class DbPropertiesDTO {
 		this.url = url;
 		this.isActive = isActive;
 		this.cliente_id = cliente_id;
+	}
+	
+	public DbPropertiesDTO(DbProperties dbProperties) {
+		this.id_db = dbProperties.getId_db();
+		this.repository_name = dbProperties.getRepository_name();
+		this.vendor = dbProperties.getVendor();
+		this.driver = dbProperties.getDriver();
+		this.username = dbProperties.getUsername();
+		this.password = dbProperties.getPassword();
+		this.dbschema = dbProperties.getDbschema();
+		this.url = dbProperties.getUrl();
+		this.isActive = dbProperties.getIsActive();
+		this.cliente_id = dbProperties.getCliente().getId();
 	}
 
 	public Integer getId_db() {

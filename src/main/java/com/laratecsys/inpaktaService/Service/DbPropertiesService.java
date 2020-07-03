@@ -1,5 +1,6 @@
 package com.laratecsys.inpaktaService.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,12 +61,31 @@ public class DbPropertiesService {
 		
 		return newDbProperties;
 	}
+	
+	public DbPropertiesDTO fromDomain(DbProperties domain, Integer idCliente) {
+		
+		DbPropertiesDTO newDTO = new DbPropertiesDTO(domain.getId_db(), domain.getRepository_name(), domain.getVendor(),
+				domain.getDriver(), domain.getUsername(), domain.getPassword(), domain.getDbschema(), domain.getUrl(),
+				domain.getIsActive(), idCliente);
+		return newDTO;
+	}
 
-	public List<DbProperties> findingAllDbPropertiesByClienteId(){
+	public List<DbPropertiesDTO> findingAllDbPropertiesByClienteId(){
 		
 		UserSS userLoged = UserService.authenticated();
-		List<DbProperties> dbPropertiesList = dbPropertiesRepositories.findByClienteId(userLoged.getId());
 		
-		return dbPropertiesList;
+		if(userLoged==null) {
+			throw new AuthorizationException("Usuário não logado!");
+		}
+		
+		List<DbProperties> dbPropertiesList = dbPropertiesRepositories.findByClienteId(new Cliente(userLoged.getId(), null, null, null,null));
+		List<DbPropertiesDTO> dbPropertiesDTOList = new ArrayList<>();
+	
+		for (DbProperties dbProperties : dbPropertiesList) {
+			
+			dbPropertiesDTOList.add(new DbPropertiesDTO(dbProperties));
+		}
+		
+		return dbPropertiesDTOList;
 	}
 }
