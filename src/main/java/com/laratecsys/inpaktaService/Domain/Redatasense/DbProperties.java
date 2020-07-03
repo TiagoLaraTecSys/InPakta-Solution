@@ -30,6 +30,7 @@ public class DbProperties {
 	String	url;
 	Integer	isActive;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "dbProperties",cascade = CascadeType.ALL)
 	private List<DataResult> resultados = new ArrayList<>();
 	
