@@ -18,6 +18,7 @@ import com.laratecsys.inpaktaService.Dto.ClienteDto;
 import com.laratecsys.inpaktaService.Service.ClienteService;
 
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping(value = "/cliente")
@@ -47,6 +48,7 @@ public class ClienteResources {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiIgnore()
 	@RequestMapping(value = "/emails/andre", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> listingAllClientEmail(){
 		
