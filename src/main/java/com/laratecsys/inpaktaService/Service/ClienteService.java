@@ -61,7 +61,7 @@ public class ClienteService {
 
 	public Cliente fromDTO(ClienteDto objDTO) {
 
-		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getSobNome(), objDTO.getEmail(),
+		return new Cliente(null,objDTO.getNome(), objDTO.getSobNome(), objDTO.getEmail(),
 				pe.encode(objDTO.getSenha()));
 	}
 

@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 public class ClienteDto {
 	
-	private Integer id;
+	
 	@NotEmpty(message = "Preenchimento obrigatório!")
 	@Length(min=5, max=120, message = "Tamanho máximo 120 e mínimo 5")
 	private String nome;
@@ -25,20 +25,12 @@ public class ClienteDto {
 		
 	}
 	
-	public ClienteDto(Integer id, String nome, String sobNome, String email) {
+	public ClienteDto(String nome, String sobNome, String email) {
 		super();
-		this.id = id;
+		
 		this.nome = nome;
 		this.sobNome = sobNome;
 		this.email = email;
-	}
-		
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getNome() {
