@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
+import com.laratecsys.inpaktaService.Domain.Redatasense.DatadiscoveryProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DbPropertiesDTO;
 import com.laratecsys.inpaktaService.Enum.Perfil;
@@ -55,19 +56,13 @@ public class DbPropertiesService {
 	public DbProperties fromDTO(DbPropertiesDTO objDto) {
 		
 		Cliente newCliente = new Cliente(objDto.getCliente_id(), null, null, null,null);
+		DatadiscoveryProperties DtProperties = new DatadiscoveryProperties();
+		DtProperties.setId(objDto.getDataDiscoveryProperties_id());
 		DbProperties newDbProperties = new DbProperties(objDto.getId_db(), objDto.getRepository_name(),
 				objDto.getVendor(), objDto.getDriver(), objDto.getUsername(), objDto.getPassword(),
-				objDto.getDbschema(),objDto.getUrl(), objDto.getIsActive(), newCliente);
+				objDto.getDbschema(),objDto.getUrl(), objDto.getIsActive(), newCliente, DtProperties);
 		
 		return newDbProperties;
-	}
-	
-	public DbPropertiesDTO fromDomain(DbProperties domain, Integer idCliente) {
-		
-		DbPropertiesDTO newDTO = new DbPropertiesDTO(domain.getId_db(), domain.getRepository_name(), domain.getVendor(),
-				domain.getDriver(), domain.getUsername(), domain.getPassword(), domain.getDbschema(), domain.getUrl(),
-				domain.getIsActive(), idCliente);
-		return newDTO;
 	}
 
 	public List<DbPropertiesDTO> findingAllDbPropertiesByClienteId(){

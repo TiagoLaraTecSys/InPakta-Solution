@@ -41,7 +41,7 @@ public class DataResultService {
 	public DataResult fromDTO(DataResultDTO objDTO) {
 		
 		
-		DbProperties dbProperties = new DbProperties(objDTO.getId_db(), null, null, null, null, null, null, null, null, null);
+		DbProperties dbProperties = new DbProperties(objDTO.getId_db(), null, null, null, null, null, null, null, null, null,null);
 		
 		return new DataResult(null, objDTO.getRun_id(), null, objDTO.getSchema_name(), 
 				objDTO.getTable_name(), objDTO.getColumn_name(), objDTO.getProbability(), 
