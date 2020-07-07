@@ -42,21 +42,21 @@ public class TestConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Cliente teste = new Cliente(null, "Tiago", "de Lara Ribeiro", "tiagolararibeiro1998@gmail.com",
-				pe.encode("1234"));
+		//Cliente teste = new Cliente(null, "Tiago", "de Lara Ribeiro", "tiagolararibeiro1998@gmail.com",
+		//		pe.encode("1234"));
 
 		DatadiscoveryProperties newDatadiscoveryProperties = new DatadiscoveryProperties(null,0.6, "pt-ner-multi.bin",
 				"en-token.bin", "MYTABLE_TO_IGNORE", 1000, 6, 3, 0,
 				"com.strider.datadefender.specialcase.SinDetector.detectSin", "model_generic", "nomes.xml", "NERRegex");
 
-		DbProperties newDbProperties = new DbProperties(null, "", "mysql", "com.mysql.jdbc.Driver", "inpakt79_root",
-				"1s1@f23ty", "inpakt79_inpaktdb", "jdbc:mysql://inpakta.com.br/inpakt79_inpaktdb", 1, teste,newDatadiscoveryProperties);
+		//DbProperties newDbProperties = new DbProperties(null, "", "mysql", "com.mysql.jdbc.Driver", "inpakt79_root",
+		//		"1s1@f23ty", "inpakt79_inpaktdb", "jdbc:mysql://inpakta.com.br/inpakt79_inpaktdb", 1, teste,newDatadiscoveryProperties);
 
-		clienteRepositories.saveAll(Arrays.asList(teste));
+		//clienteRepositories.saveAll(Arrays.asList(teste));
 
 		dataDiscoveryRepositoriesRepositories.saveAll(Arrays.asList(newDatadiscoveryProperties));
-		teste.getDbProperties().addAll(Arrays.asList(newDbProperties));
-		dbPropertiesRepositories.saveAll(Arrays.asList(newDbProperties));
+		//teste.getDbProperties().addAll(Arrays.asList(newDbProperties));
+		//dbPropertiesRepositories.saveAll(Arrays.asList(newDbProperties));
 
 	}
 
