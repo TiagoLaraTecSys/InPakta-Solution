@@ -43,9 +43,9 @@ public class DbPropertiesResources {
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<DbPropertiesDTO>> listingDbProperties(){
+	public ResponseEntity<List<DbProperties>> listingDbProperties(){
 		
-		List<DbPropertiesDTO> dbPropertiesList = dbPropertiesService.findingAllDbPropertiesByClienteId();
+		List<DbProperties> dbPropertiesList = dbPropertiesService.findingAllDbPropertiesByClienteId();
 		return ResponseEntity.ok().body(dbPropertiesList);
 	}
 	

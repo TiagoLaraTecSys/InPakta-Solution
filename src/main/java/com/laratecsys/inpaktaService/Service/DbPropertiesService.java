@@ -65,7 +65,7 @@ public class DbPropertiesService {
 		return newDbProperties;
 	}
 
-	public List<DbPropertiesDTO> findingAllDbPropertiesByClienteId(){
+	public List<DbProperties> findingAllDbPropertiesByClienteId(){
 		
 		UserSS userLoged = UserService.authenticated();
 		
@@ -74,13 +74,7 @@ public class DbPropertiesService {
 		}
 		
 		List<DbProperties> dbPropertiesList = dbPropertiesRepositories.findByClienteId(new Cliente(userLoged.getId(), null, null, null,null));
-		List<DbPropertiesDTO> dbPropertiesDTOList = new ArrayList<>();
-	
-		for (DbProperties dbProperties : dbPropertiesList) {
-			
-			dbPropertiesDTOList.add(new DbPropertiesDTO(dbProperties));
-		}
-		
-		return dbPropertiesDTOList;
+
+		return dbPropertiesList;
 	}
 }

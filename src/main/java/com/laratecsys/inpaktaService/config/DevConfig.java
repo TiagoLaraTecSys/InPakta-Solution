@@ -36,7 +36,6 @@ public class DevConfig {
 
 			return true;
 		}
-
 	}
 
 	@Bean
