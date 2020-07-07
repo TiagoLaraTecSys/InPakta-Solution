@@ -1,6 +1,5 @@
 package com.laratecsys.inpaktaService.Domain.Redatasense;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
