@@ -39,10 +39,10 @@ public class DbProperties {
 	@JsonIgnore
 	private Cliente cliente;
 	
-	@ManyToOne()
-	@JoinColumn(name = "dataDiscoveryProperties_id")
-	@JsonIgnore
-	private DatadiscoveryProperties dataDiscoveryProperties;
+	//@ManyToOne()
+	//@JoinColumn(name = "dataDiscoveryProperties_id")
+	//@JsonIgnore
+	//private DatadiscoveryProperties dataDiscoveryProperties;
 	
 	public DbProperties() {
 		
@@ -61,7 +61,7 @@ public class DbProperties {
 		this.url = url;
 		this.isActive = isActive;
 		this.cliente = cliente;
-		this.dataDiscoveryProperties = dataDiscoveryProperties;
+		//this.dataDiscoveryProperties = dataDiscoveryProperties;
 	}
 
 	public DbProperties(Integer id_db, String repository_name, String vendor, String driver, String username,
@@ -166,13 +166,13 @@ public class DbProperties {
 		this.cliente = cliente;
 	}
 	
-	public DatadiscoveryProperties getDataDiscoveryProperties() {
-		return dataDiscoveryProperties;
-	}
+	//public DatadiscoveryProperties getDataDiscoveryProperties() {
+	//	return dataDiscoveryProperties;
+	//}
 
-	public void setDataDiscoveryProperties(DatadiscoveryProperties dataDiscoveryProperties) {
-		this.dataDiscoveryProperties = dataDiscoveryProperties;
-	}
+	//public void setDataDiscoveryProperties(DatadiscoveryProperties dataDiscoveryProperties) {
+	//	this.dataDiscoveryProperties = dataDiscoveryProperties;
+	//}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
