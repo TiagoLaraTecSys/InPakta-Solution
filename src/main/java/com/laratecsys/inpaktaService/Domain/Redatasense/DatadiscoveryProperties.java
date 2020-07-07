@@ -30,9 +30,6 @@ public class DatadiscoveryProperties{
 	private String dictionaryPath;
 	private String NERmodel;
 
-	@OneToMany(mappedBy = "dataDiscoveryProperties",cascade = CascadeType.ALL)
-	private List<DbProperties> dbProperties = new ArrayList<>();
-	
 	public DatadiscoveryProperties() {
 
 	}
@@ -54,15 +51,6 @@ public class DatadiscoveryProperties{
 		this.models = models;
 		this.dictionaryPath = dictionaryPath;
 		NERmodel = nERmodel;
-	}
-
-	
-	public List<DbProperties> getDbProperties() {
-		return dbProperties;
-	}
-
-	public void setDbProperties(List<DbProperties> dbProperties) {
-		this.dbProperties = dbProperties;
 	}
 
 	public Integer getId() {
