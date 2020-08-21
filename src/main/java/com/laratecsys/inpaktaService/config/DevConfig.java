@@ -30,7 +30,7 @@ public class DevConfig {
 					"pt-ner-multi.bin", "en-token.bin", "MYTABLE_TO_IGNORE", 1000, 6, 3, 0,
 					"com.strider.datadefender.specialcase.SinDetector.detectSin", "model_generic", "nomes.xml",
 					"NERRegex");
-			dataRepo.save(newDatadiscoveryProperties);
+			//dataRepo.save(newDatadiscoveryProperties);
 			return false;
 		} else {
 
