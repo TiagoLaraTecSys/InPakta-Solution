@@ -1,15 +1,19 @@
 package com.laratecsys.inpaktaService.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DataResult;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DataResultDTO;
 import com.laratecsys.inpaktaService.Repositorie.DataResultRepositories;
+import com.laratecsys.inpaktaService.Security.UserSS;
+import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
 import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
 @Service
@@ -28,6 +32,19 @@ public class DataResultService {
 		return newCli.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrador. ID:" + id + ", Tipo:" + DataResult.class.getName()));
 	}
+	
+	public List<DataResult> findAllByClienteId(){
+		
+		UserSS userLogged = UserService.authenticated();
+		
+		if(userLogged == null) {
+			throw new AuthorizationException("Usuario nao autenticado!");
+		}
+		
+		List<DataResult> dataResultAll = dataResultRepositories.findByClienteId(new Cliente(userLogged.getId(), null, null, null, null));
+		
+		return dataResultAll;
+	}
 
 	public DataResult insert(DataResult obj) {
 		
@@ -38,6 +55,7 @@ public class DataResultService {
 		return obj;
 	}
 
+	
 	public DataResult fromDTO(DataResultDTO objDTO) {
 		
 		
@@ -49,4 +67,5 @@ public class DataResultService {
 				objDTO.getNum_rows(), objDTO.getScore(), objDTO.getSample_data(), dbProperties);
 	}
 
+	
 }

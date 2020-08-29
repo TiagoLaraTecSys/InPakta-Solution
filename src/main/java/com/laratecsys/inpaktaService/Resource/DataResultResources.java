@@ -1,8 +1,10 @@
 package com.laratecsys.inpaktaService.Resource;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +41,14 @@ public class DataResultResources {
 				.path("/{id}").buildAndExpand(obj.getId_data()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<DataResult>> findAllByClientId(){
+		
+		List<DataResult> dataResultAll = dataResultService.findAllByClienteId();
+		
+		return ResponseEntity.accepted().body(dataResultAll);
 	}
 	
 }

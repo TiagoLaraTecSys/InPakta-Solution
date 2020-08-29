@@ -25,7 +25,7 @@ public class DevConfig {
 	@Bean
 	public boolean instantiateDevDatabase() throws ParseException {
 
-		if (!"update".equals(strategy)) {
+		if ("update".equals(strategy)) {
 			DatadiscoveryProperties newDatadiscoveryProperties = new DatadiscoveryProperties(null, 0.6,
 					"pt-ner-multi.bin", "en-token.bin", "MYTABLE_TO_IGNORE", 1000, 6, 3, 0,
 					"com.strider.datadefender.specialcase.SinDetector.detectSin", "model_generic", "nomes.xml",
