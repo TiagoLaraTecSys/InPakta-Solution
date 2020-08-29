@@ -13,7 +13,7 @@ public interface DataResultRepositories extends JpaRepository<DataResult, Intege
 	@Query("SELECT dr FROM DataResult dr"
 			+ " JOIN dr.dbProperties dbp"
 			+ " JOIN dbp.cliente c "
-			+ " where c.id IN :id and dbp.isActive=1")
+			+ " where dbp.cliente IN :id and dbp.isActive=1")
 	public List<DataResult>findByClienteId(Cliente id);
 	
 }
