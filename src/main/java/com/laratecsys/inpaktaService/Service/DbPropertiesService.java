@@ -1,10 +1,11 @@
 package com.laratecsys.inpaktaService.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
@@ -14,8 +15,7 @@ import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DbPropertiesDTO;
 import com.laratecsys.inpaktaService.Enum.Perfil;
 import com.laratecsys.inpaktaService.Repositorie.DbPropertiesRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
-import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
-import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
+import com.laratecsys.inpaktaService.Service.exception.*;
 
 @Service
 public class DbPropertiesService {
@@ -44,13 +44,29 @@ public class DbPropertiesService {
 
 	public DbProperties insert(DbProperties obj) {
 		
+				
+		UserSS userLogged = UserService.authenticated();
+		
+		if (userLogged==null) {
+			throw new AuthorizationException("Usuário não aturizado para inserir novo banco de dados");
+		}
+		
 		obj.setId_db(null);
-		obj.setCliente(clienteService.findById(obj.getCliente().getId()));
-		dbPropertiesRepositories.save(obj);
+		obj.setCliente(clienteService.findById(userLogged.getId()));
+		
+		try {
+			
+			dbPropertiesRepositories.save(obj);
+			
+		}catch (DataIntegrityViolationException e) {
+			
+			throw new ConstraitException("Não foi possível encontrar a referência: " + e.getMessage());
+			
+		}
 		
 		//emailService.sendInsertConfirmationHtmlEmail(obj);
-		
 		return obj;
+		
 	}
 
 	public DbProperties fromDTO(DbPropertiesDTO objDto) {
