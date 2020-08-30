@@ -40,7 +40,7 @@ public class FileProperties implements Serializable{
 	@JsonIgnore
 	private Cliente cliente;
 	
-	@OneToMany(mappedBy="diretorio", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="fileProperties", cascade = CascadeType.ALL)
 	private List<FileResults> fileResults = new ArrayList<>();
 	
 	public FileProperties() {

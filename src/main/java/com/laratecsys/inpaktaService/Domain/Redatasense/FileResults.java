@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class FileResults implements Serializable{
@@ -23,10 +24,7 @@ public class FileResults implements Serializable{
 	private String run_Id;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date run_TimeStamp;
-	
-	@ManyToOne()
-	@JoinColumn(name="diretorio")
-	private FileProperties diretorio;
+	private String diretorio;
 	private String nomeDoArquivo;
 	private String probabilidade;
 	private String modelo;
@@ -34,6 +32,12 @@ public class FileResults implements Serializable{
 	private String dicionario;
 	
 	private String dadosColetados;
+	
+	@ManyToOne()
+	@JoinColumn(name="FileProperties_id")
+	@JsonIgnore
+	private FileProperties fileProperties;
+	
 
 	
 
@@ -44,7 +48,7 @@ public class FileResults implements Serializable{
 	
 	
 	
-	public FileResults(Integer id_File, String run_Id, Date run_TimeStamp, FileProperties diretorio, String nomeDoArquivo,
+	public FileResults(Integer id_File, String run_Id, Date run_TimeStamp, String diretorio, String nomeDoArquivo,
 			String probabilidade, String modelo, String modeloDoModulo, String dicionario, String dadosColetados) {
 		super();
 		this.id_File = id_File;
@@ -85,11 +89,11 @@ public class FileResults implements Serializable{
 		this.run_TimeStamp = run_TimeStamp;
 	}
 
-	public FileProperties getDiretorio() {
+	public String getDiretorio() {
 		return diretorio;
 	}
 
-	public void setDiretorio(FileProperties diretorio) {
+	public void setDiretorio(String diretorio) {
 		this.diretorio = diretorio;
 	}
 
