@@ -40,10 +40,10 @@ public class DevConfig {
 					"NERRegex");*/
 			//dataRepo.save(newDatadiscoveryProperties);
 			
-			FileProperties newFileProperties = new FileProperties(null,"0.6", "pt-ner-multi.bin", "en-token.bin", "model_generic", "C:/Users/larat/OneDrive/Documents/InPakta/teste", 
-					"excluded_files.txt","nomdes.xml", "txt, TXT, docx,doc,PDF,pdf,html,css", "NEREntropy",new Date(System.currentTimeMillis()),new Cliente(105, null, null, null, null));
+			//FileProperties newFileProperties = new FileProperties(null,"0.6", "pt-ner-multi.bin", "en-token.bin", "model_generic", "C:/Users/larat/OneDrive/Documents/InPakta/teste", 
+			//		"excluded_files.txt","nomdes.xml", "txt, TXT, docx,doc,PDF,pdf,html,css", "NEREntropy",new Date(System.currentTimeMillis()),new Cliente(105, null, null, null, null));
 			
-			filePropertiesRepositories.saveAll(Arrays.asList(newFileProperties));
+			//filePropertiesRepositories.saveAll(Arrays.asList(newFileProperties));
 			
 			return false;
 		} else {
