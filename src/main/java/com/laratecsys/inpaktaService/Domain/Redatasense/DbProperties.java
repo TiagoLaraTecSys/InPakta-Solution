@@ -39,6 +39,8 @@ public class DbProperties {
 	@JsonIgnore
 	private Cliente cliente;
 	
+	
+	
 	@ManyToOne()
 	@JoinColumn(name = "dataDiscoveryProperties_id")
 	private DatadiscoveryProperties dataDiscoveryProperties;

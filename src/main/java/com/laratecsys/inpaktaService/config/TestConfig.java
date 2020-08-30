@@ -1,6 +1,7 @@
 package com.laratecsys.inpaktaService.config;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,9 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DatadiscoveryProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
+import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DatadiscoveryPropertiesRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DbPropertiesRepositories;
+import com.laratecsys.inpaktaService.Repositorie.FilePropertiesRepositories;
 import com.laratecsys.inpaktaService.Service.EmailService;
 import com.laratecsys.inpaktaService.Service.SmtpEmailService;
 
@@ -30,6 +33,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private DatadiscoveryPropertiesRepositories dataDiscoveryRepositoriesRepositories;
+	
+	@Autowired
+	private FilePropertiesRepositories filePropertiesRepositories;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -52,10 +58,15 @@ public class TestConfig implements CommandLineRunner {
 		DbProperties newDbProperties = new DbProperties(null, "", "mysql", "com.mysql.jdbc.Driver", "inpakt79_root",
 				"1s1@f23ty", "inpakt79_inpaktdb", "jdbc:mysql://inpakta.com.br/inpakt79_inpaktdb", 1, teste,newDatadiscoveryProperties);
 
+		FileProperties newFileProperties = new FileProperties(null,"0.6", "pt-ner-multi.bin", "en-token.bin", "model_generic", "C:/Users/larat/OneDrive/Documents/InPakta/teste", 
+				"excluded_files.txt","nomdes.xml", "txt, TXT, docx,doc,PDF,pdf,html,css", "NEREntropy",new Date(System.currentTimeMillis()),teste);
+		
 		clienteRepositories.saveAll(Arrays.asList(teste));
 
 		dataDiscoveryRepositoriesRepositories.saveAll(Arrays.asList(newDatadiscoveryProperties));
 		teste.getDbProperties().addAll(Arrays.asList(newDbProperties));
+		teste.getFileProperties().addAll(Arrays.asList(newFileProperties));
+		filePropertiesRepositories.saveAll(Arrays.asList(newFileProperties));
 		dbPropertiesRepositories.saveAll(Arrays.asList(newDbProperties));
 
 	}
