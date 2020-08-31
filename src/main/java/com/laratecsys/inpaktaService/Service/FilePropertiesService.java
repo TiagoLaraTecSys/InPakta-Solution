@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.laratecsys.inpaktaService.Domain.Cliente;
+import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.FilePropertiesDTO;
 import com.laratecsys.inpaktaService.Enum.Perfil;
@@ -88,8 +90,8 @@ public class FilePropertiesService {
 			throw new AuthorizationException("Usuário não logado!");
 		}
 		
-		//List<DbProperties> dbPropertiesList = dbPropertiesRepositories.findByClienteId(new Cliente(userLoged.getId(), null, null, null,null));
+		List<FileProperties> filePropertiesList = filePropertiesRepositories.findByClienteId(new Cliente(userLoged.getId(), null, null, null,null));
 
-		return null;
+		return filePropertiesList;
 	}
 }
