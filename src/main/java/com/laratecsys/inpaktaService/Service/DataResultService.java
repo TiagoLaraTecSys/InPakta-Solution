@@ -33,15 +33,15 @@ public class DataResultService {
 				"Objeto não encontrador. ID:" + id + ", Tipo:" + DataResult.class.getName()));
 	}
 	
-	public List<DataResult> findAllByClienteId(){
+	public List<DataResult> findAllByClienteId(Integer id){
 		
-		UserSS userLogged = UserService.authenticated();
+		//UserSS userLogged = UserService.authenticated();
 		
-		if(userLogged == null) {
-			throw new AuthorizationException("Usuario nao autenticado!");
-		}
+	//	if(userLogged == null) {
+			//throw new AuthorizationException("Usuario nao autenticado!");
+		//}
 		
-		List<DataResult> dataResultAll = dataResultRepositories.findByClienteId(new Cliente(userLogged.getId(), null, null, null, null));
+		List<DataResult> dataResultAll = dataResultRepositories.findByClienteId(new Cliente(id, null, null, null, null));
 		
 		return dataResultAll;
 	}

@@ -43,10 +43,10 @@ public class DataResultResources {
 	}
 	
 	
-	@RequestMapping(value = "/all",method = RequestMethod.GET)
-	public ResponseEntity<List<DataResult>> findAllByClientId(){
+	@RequestMapping(value = "/all/{id}",method = RequestMethod.GET)
+	public ResponseEntity<List<DataResult>> findAllByClientId(@PathVariable Integer id){
 		
-		List<DataResult> dataResultAll = dataResultService.findAllByClienteId();
+		List<DataResult> dataResultAll = dataResultService.findAllByClienteId(id);
 		
 		return ResponseEntity.accepted().body(dataResultAll);
 	}
