@@ -48,12 +48,12 @@ public class ClienteService {
 
 		Cliente novoCliente = findByEmail(clienteParametro.getEmail());
 
-		if (novoCliente == null) {
-			clienteParametro.setId(null);
-			clienteRepositories.save(clienteParametro);
+		if (novoCliente != null) {
+			throw new AuthorizationException("Email já existente!");
 		}
-		;
-
+		clienteParametro.setId(null);
+		clienteRepositories.save(clienteParametro);
+		
 		emailService.sendInsertConfirmationHtmlEmail(clienteParametro);
 
 		return clienteParametro;
