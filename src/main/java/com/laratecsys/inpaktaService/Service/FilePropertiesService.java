@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
@@ -93,5 +94,22 @@ public class FilePropertiesService {
 		List<FileProperties> filePropertiesList = filePropertiesRepositories.findByClienteId(new Cliente(userLoged.getId(), null, null, null,null));
 
 		return filePropertiesList;
+	}
+
+	public FileProperties update(FileProperties fileProperties) {
+		
+		FileProperties obj = filePropertiesRepositories.getOne(fileProperties.getId());
+		updateData(obj,fileProperties);
+		return filePropertiesRepositories.save(obj);
+	}
+
+	private void updateData(FileProperties newObj, FileProperties fileProperties) {
+
+		newObj.setLimiteDeProbabilidade(fileProperties.getLimiteDeProbabilidade());
+		//newObj.setArquivosExcluidos(fileProperties.getArquivosExcluidos());
+		newObj.setDiretorios(fileProperties.getDiretorios());
+		newObj.setExtensaoArquivo(fileProperties.getExtensaoArquivo());
+		newObj.setNERmodel(fileProperties.getNERmodel());
+		
 	}
 }

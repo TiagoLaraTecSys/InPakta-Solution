@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.FilePropertiesDTO;
 import com.laratecsys.inpaktaService.Service.FilePropertiesService;
@@ -41,6 +42,17 @@ public class FilePropertiesResource {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> update(@RequestBody FilePropertiesDTO filePropertiesDTO, @PathVariable Integer id){
+		
+		FileProperties fileProperties = filePropertiesService.fromDTO(filePropertiesDTO);
+		fileProperties.setId(id);
+		
+		filePropertiesService.update(fileProperties);
+		return ResponseEntity.noContent().build();
+		
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
