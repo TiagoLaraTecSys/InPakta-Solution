@@ -17,7 +17,7 @@ import com.laratecsys.inpaktaService.Dto.FileResultsDTO;
 import com.laratecsys.inpaktaService.Service.FileResultService;
 
 @RestController
-@RequestMapping(value = "/fileproperties")
+@RequestMapping(value = "/fileresults")
 public class FileResultResource {
 
 	@Autowired
