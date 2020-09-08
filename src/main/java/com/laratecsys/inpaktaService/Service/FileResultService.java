@@ -3,15 +3,16 @@ package com.laratecsys.inpaktaService.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
-import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileResults;
 import com.laratecsys.inpaktaService.Dto.FileResultsDTO;
 import com.laratecsys.inpaktaService.Repositorie.FileResultsRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
 
+@Service
 public class FileResultService {
 	
 	@Autowired
