@@ -1,9 +1,5 @@
 package com.laratecsys.inpaktaService.Dto;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class FileResultsDTO {
 	
 	private Integer id_File;

@@ -6,11 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
-import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.FilePropertiesDTO;
 import com.laratecsys.inpaktaService.Enum.Perfil;
@@ -110,6 +108,7 @@ public class FilePropertiesService {
 		newObj.setDiretorios(fileProperties.getDiretorios());
 		newObj.setExtensaoArquivo(fileProperties.getExtensaoArquivo());
 		newObj.setNERmodel(fileProperties.getNERmodel());
+		newObj.setModelos(fileProperties.getModelos());
 		
 	}
 }

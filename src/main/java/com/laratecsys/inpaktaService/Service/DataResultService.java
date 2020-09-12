@@ -12,8 +12,6 @@ import com.laratecsys.inpaktaService.Domain.Redatasense.DataResult;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DTO.DataResultDTO;
 import com.laratecsys.inpaktaService.Repositorie.DataResultRepositories;
-import com.laratecsys.inpaktaService.Security.UserSS;
-import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
 import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
 @Service
