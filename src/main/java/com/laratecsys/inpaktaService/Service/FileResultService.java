@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
+import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileResults;
 import com.laratecsys.inpaktaService.Dto.FileResultsDTO;
 import com.laratecsys.inpaktaService.Repositorie.FileResultsRepositories;
@@ -45,11 +46,12 @@ public class FileResultService {
 			
 		FileResults newObj = new FileResults();
 		
+		newObj.setId_File(null);
 		newObj.setDicionario(obj.getDicionario());
 		newObj.setDiretorio(obj.getDiretorio());
 		newObj.setModelo(obj.getModelo());
 		newObj.setModeloDoModulo(obj.getModeloDoModulo());
-		newObj.setId_File(obj.getId_File());
+		newObj.setFileProperties(new FileProperties(obj.getId_File(), null, null, null, null, null, null, null, null, null, null, null));
 		newObj.setNomeDoArquivo(obj.getNomeDoArquivo());
 		newObj.setProbabilidade(obj.getProbabilidade());
 	

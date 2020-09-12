@@ -21,6 +21,7 @@ public class FileResults implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id_File;
+	
 	private String run_Id;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date run_TimeStamp;
@@ -144,6 +145,20 @@ public class FileResults implements Serializable{
 	public void setDadosColetados(String dadosColetados) {
 		this.dadosColetados = dadosColetados;
 	}
+
+
+
+	public FileProperties getFileProperties() {
+		return fileProperties;
+	}
+
+
+
+	public void setFileProperties(FileProperties fileProperties) {
+		this.fileProperties = fileProperties;
+	}
+	
+	
 
 
 
