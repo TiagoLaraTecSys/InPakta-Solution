@@ -1,5 +1,6 @@
 package com.laratecsys.inpaktaService.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class FileResultService {
 		if (userLogged == null) {
 			throw new AuthorizationException("Não foi possível salvar os resultados");
 		}
-		
+		fileResults.setRun_TimeStamp(new Date(System.currentTimeMillis()));
 		return fileResultsRepositories.save(fileResults);
 		
 	}
@@ -54,6 +55,7 @@ public class FileResultService {
 		newObj.setFileProperties(new FileProperties(obj.getId_File(), null, null, null, null, null, null, null, null, null, null, null));
 		newObj.setNomeDoArquivo(obj.getNomeDoArquivo());
 		newObj.setProbabilidade(obj.getProbabilidade());
+		
 	
 		return newObj;
 	}
