@@ -55,6 +55,7 @@ public class FileResultService {
 		newObj.setFileProperties(new FileProperties(obj.getId_File(), null, null, null, null, null, null, null, null, null, null, null));
 		newObj.setNomeDoArquivo(obj.getNomeDoArquivo());
 		newObj.setProbabilidade(obj.getProbabilidade());
+		newObj.setDicionario(obj.getDicionario());
 		
 	
 		return newObj;
