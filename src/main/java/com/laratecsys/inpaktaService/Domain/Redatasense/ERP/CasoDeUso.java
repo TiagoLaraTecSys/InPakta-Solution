@@ -14,8 +14,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Enum.DataLifeCycle;
 
 @Entity
@@ -29,6 +32,10 @@ public class CasoDeUso {
 	
 	@OneToMany(mappedBy="casoDeUso", cascade= CascadeType.ALL)
 	private List<DadosPessoais> dadosPessoais = new ArrayList<>();
+	
+	@ManyToOne()
+	@JoinColumn(name = "client_id")
+	private Cliente cliente;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name= "datalifecycle")
@@ -93,9 +100,31 @@ public class CasoDeUso {
 	public List<DadosPessoais> getDadosPessoais() {
 		return dadosPessoais;
 	}
-
+  
 	public void setDadosPessoais(List<DadosPessoais> dadosPessoais) {
 		this.dadosPessoais = dadosPessoais;
 	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public CasoDeUso(Integer id, String nome, String descricao, List<DadosPessoais> dadosPessoais, Cliente cliente,
+			Set<Integer> lifecycles, Boolean useConsent) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.dadosPessoais = dadosPessoais;
+		this.cliente = cliente;
+		this.lifecycles = lifecycles;
+		this.useConsent = useConsent;
+	}
+	
+	
 	
 }

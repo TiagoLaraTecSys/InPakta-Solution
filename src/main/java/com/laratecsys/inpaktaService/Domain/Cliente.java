@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
 import com.laratecsys.inpaktaService.Enum.Perfil;
 import com.laratecsys.inpaktaService.Enum.TipoCliente;
 
@@ -43,6 +44,8 @@ public class Cliente {
 	@OneToMany(mappedBy= "cliente", cascade = CascadeType.ALL)
 	private List<FileProperties> fileProperties = new ArrayList<>();
 	
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)
+	private List<CasoDeUso> casoDeUso = new ArrayList<>();
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "perfis")
@@ -52,6 +55,18 @@ public class Cliente {
 		
 	}
 	
+
+	public List<CasoDeUso> getCasoDeUso() {
+		return casoDeUso;
+	}
+
+
+
+	public void setCasoDeUso(List<CasoDeUso> casoDeUso) {
+		this.casoDeUso = casoDeUso;
+	}
+
+
 
 	public Cliente(Integer id, String nome, String sobNome, String email, String senha) {
 		super();
