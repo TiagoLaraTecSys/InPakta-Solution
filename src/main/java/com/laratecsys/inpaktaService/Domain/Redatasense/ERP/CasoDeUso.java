@@ -34,7 +34,7 @@ public class CasoDeUso {
 	private List<DadosPessoais> dadosPessoais = new ArrayList<>();
 	
 	@ManyToOne()
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
 	@ElementCollection(fetch = FetchType.EAGER)

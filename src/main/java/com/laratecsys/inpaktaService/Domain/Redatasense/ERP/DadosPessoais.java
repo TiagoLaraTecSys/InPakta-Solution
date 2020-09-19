@@ -47,6 +47,14 @@ public class DadosPessoais {
 	}
 	public void setDado(String dado) {
 		this.dado = dado;
+	}
+
+	public CasoDeUso getCasoDeUso() {
+		return casoDeUso;
+	}
+
+	public void setCasoDeUso(CasoDeUso casoDeUso) {
+		this.casoDeUso = casoDeUso;
 	}	
 
 }
