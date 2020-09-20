@@ -16,7 +16,7 @@ import com.laratecsys.inpaktaService.Service.CasoDeUsoService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController()
-@RequestMapping(path = "/casodeuso")
+@RequestMapping(value = "/casodeuso")
 public class CasoDeUsoResource {
 
 	@Autowired
