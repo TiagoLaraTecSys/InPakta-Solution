@@ -39,7 +39,7 @@ public class CasoDeUsoService {
 			throw new AuthorizationException("Usuario nao esta logado");
 		}
 		
-		List<CasoDeUso> returned = casoDeUsoRepositories.findAllByClientId(userLogged.getId());
+		List<CasoDeUso> returned = casoDeUsoRepositories.findAllByClienteId(userLogged.getId());
 	
 		return returned;
 	
