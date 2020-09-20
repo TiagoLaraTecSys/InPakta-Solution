@@ -11,6 +11,6 @@ import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
 public interface CasoDeUsoRepositories extends JpaRepository<CasoDeUso, Integer> {
 	
 	@Transactional
-	public List<CasoDeUso> findAllByClientId(Integer id);
+	public List<CasoDeUso> findAllByClienteId(Integer id);
 	
 } 
