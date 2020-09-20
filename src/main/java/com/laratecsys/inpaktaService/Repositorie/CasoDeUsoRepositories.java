@@ -13,4 +13,4 @@ public interface CasoDeUsoRepositories extends JpaRepository<CasoDeUso, Integer>
 	@Transactional
 	public List<CasoDeUso> findAllByClientId(Integer id);
 	
-}
+} 

@@ -15,7 +15,7 @@ public class CasoDeUsoService {
 	@Autowired
 	private CasoDeUsoRepositories casoDeUsoRepositories;
 	
-	public void inserirCasoDeUso(CasoDeUso casoDeUso) {
+	public CasoDeUso inserirCasoDeUso(CasoDeUso casoDeUso) {
 		
 		UserSS userLogged = UserService.authenticated();
 	
@@ -26,7 +26,7 @@ public class CasoDeUsoService {
 		casoDeUso.setId(null);
 		Cliente logged = new Cliente(userLogged.getId(),null,null,null,null);	
 		casoDeUso.setCliente(logged);	
-		casoDeUsoRepositories.save(casoDeUso);
+		return casoDeUsoRepositories.save(casoDeUso);
 	}
 	
 	public List<CasoDeUso> listarCasosDeUso(){
@@ -37,7 +37,7 @@ public class CasoDeUsoService {
 			throw new AuthorizationException("Usuario nao esta logado");
 		}
 		
-		List<CasoDeUso> returned = casoDeUsoRepositories.findAllByClienteId(userLogged.getId());
+		List<CasoDeUso> returned = casoDeUsoRepositories.findAllByClientId(userLogged.getId());
 	
 		return returned;
 	

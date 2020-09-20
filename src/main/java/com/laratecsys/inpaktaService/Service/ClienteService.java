@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Dto.ClienteDto;
 import com.laratecsys.inpaktaService.Enum.Perfil;
+import com.laratecsys.inpaktaService.Enum.TipoCliente;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
@@ -51,6 +52,7 @@ public class ClienteService {
 		if (novoCliente != null) {
 			throw new AuthorizationException("Email já existente!");
 		}
+
 		clienteParametro.setId(null);
 		clienteRepositories.save(clienteParametro);
 		
