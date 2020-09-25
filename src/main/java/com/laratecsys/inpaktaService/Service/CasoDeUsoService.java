@@ -33,17 +33,16 @@ public class CasoDeUsoService {
 		}	
 		casoDeUso.setId(null);
 		Cliente logged = new Cliente(userLogged.getId(),null,null,null,null);
-		
-		for (DadosPessoais dadosPessoais : casoDeUso.getDadosPessoais()) {
-			DadosPessoais newDados = new DadosPessoais();
-			newDados.setId(null);
-			newDados.setDado(dadosPessoais.getDado());
-			newDados.setCasoDeUso(dadosPessoais.getCasoDeUso());
-			dadosPessoaisRepositories.save(newDados);
+
+		 casoDeUso.setCliente(logged);	
+		 CasoDeUso newCaso = casoDeUsoRepositories.save(casoDeUso);
+		 List<DadosPessoais> newDados = new ArrayList<>();
+		 for (DadosPessoais dad : casoDeUso.getDadosPessoais()) {
+			 dad.setCasoDeUso(newCaso);
+			 newDados.add(dad);
 		}
-		
-		casoDeUso.setCliente(logged);	
-		return casoDeUsoRepositories.save(casoDeUso);
+		 dadosPessoaisRepositories.saveAll(newDados);
+		 return newCaso;
 	}
 	
 	public List<CasoDeUso> listarCasosDeUso(){
