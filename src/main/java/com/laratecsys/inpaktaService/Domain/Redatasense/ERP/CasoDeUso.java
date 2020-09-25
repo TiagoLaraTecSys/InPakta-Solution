@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Enum.DataLifeCycle;
 
@@ -35,6 +36,7 @@ public class CasoDeUso {
 	
 	@ManyToOne()
 	@JoinColumn(name = "cliente_id")
+	@JsonIgnore
 	private Cliente cliente;
 	
 	@ElementCollection(fetch = FetchType.EAGER)

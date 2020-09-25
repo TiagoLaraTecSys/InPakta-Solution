@@ -77,4 +77,5 @@ public class ClienteService {
 			return clienteRepositories.findAll();
 		}
 	}
+
 }

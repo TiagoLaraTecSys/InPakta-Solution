@@ -1,3 +1,4 @@
+
 package com.laratecsys.inpaktaService.config;
 
 import java.text.ParseException;
