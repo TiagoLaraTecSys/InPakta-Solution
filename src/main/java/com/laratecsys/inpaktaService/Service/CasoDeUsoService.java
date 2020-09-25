@@ -33,8 +33,14 @@ public class CasoDeUsoService {
 		}	
 		casoDeUso.setId(null);
 		Cliente logged = new Cliente(userLogged.getId(),null,null,null,null);
-
-		dadosPessoaisRepositories.saveAll(casoDeUso.getDadosPessoais());
+		
+		for (DadosPessoais dadosPessoais : casoDeUso.getDadosPessoais()) {
+			DadosPessoais newDados = new DadosPessoais();
+			newDados.setId(null);
+			newDados.setDado(dadosPessoais.getDado());
+			newDados.setCasoDeUso(dadosPessoais.getCasoDeUso());
+			dadosPessoaisRepositories.save(newDados);
+		}
 		
 		casoDeUso.setCliente(logged);	
 		return casoDeUsoRepositories.save(casoDeUso);
