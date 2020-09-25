@@ -1,5 +1,6 @@
 package com.laratecsys.inpaktaService.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosPessoais;
 import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
+import com.laratecsys.inpaktaService.Repositorie.DadosPessoaisRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
 
@@ -16,6 +19,9 @@ public class CasoDeUsoService {
 	
 	@Autowired
 	private CasoDeUsoRepositories casoDeUsoRepositories;
+	
+	@Autowired
+	private DadosPessoaisRepositories dadosPessoaisRepositories;
 	
 	public CasoDeUso inserirCasoDeUso(CasoDeUso casoDeUso) {
 		
@@ -26,7 +32,10 @@ public class CasoDeUsoService {
 			throw new AuthorizationException("Usuario nao esta logado");
 		}	
 		casoDeUso.setId(null);
-		Cliente logged = new Cliente(userLogged.getId(),null,null,null,null);	
+		Cliente logged = new Cliente(userLogged.getId(),null,null,null,null);
+
+		dadosPessoaisRepositories.saveAll(casoDeUso.getDadosPessoais());
+		
 		casoDeUso.setCliente(logged);	
 		return casoDeUsoRepositories.save(casoDeUso);
 	}
