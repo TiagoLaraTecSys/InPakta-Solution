@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Dto.ClienteDto;
+import com.laratecsys.inpaktaService.Dto.ClienteUpdateDto;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.ClienteService;
 import com.laratecsys.inpaktaService.Service.UserService;
@@ -64,7 +65,7 @@ public class ClienteResources {
 	
 	@ApiOperation(value="Atualização de usuáro")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDto objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody ClienteUpdateDto objDTO, @PathVariable Integer id){
 		Cliente obj = clienteService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = clienteService.update(obj);

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Dto.ClienteDto;
-import com.laratecsys.inpaktaService.Enum.Perfil;
-import com.laratecsys.inpaktaService.Enum.TipoCliente;
+import com.laratecsys.inpaktaService.Dto.ClienteUpdateDto;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
@@ -68,6 +67,20 @@ public class ClienteService {
 		return clienteRepositories.save(newObj);
 		
 	}
+	public Cliente fromDTO(ClienteUpdateDto objDTO) {
+		Cliente newCliente = new Cliente(null,objDTO.getNome(), objDTO.getSobNome(), objDTO.getEmail(),
+				null);
+		
+		if (objDTO.getAutomated()==null)
+		{
+			newCliente.setAutomated(false);
+		}else 
+		{ newCliente.setAutomated(objDTO.getAutomated());}
+		
+		newCliente.setOrganizacao(objDTO.getOrganizacao());
+		return newCliente;
+	}
+	
 	public Cliente fromDTO(ClienteDto objDTO) {
 		Cliente newCliente = new Cliente(null,objDTO.getNome(), objDTO.getSobNome(), objDTO.getEmail(),
 				pe.encode(objDTO.getSenha()));
@@ -88,6 +101,7 @@ public class ClienteService {
 		newObj.setEmail(obj.getEmail());
 		newObj.setAutomated(obj.getAutomated());
 		newObj.setSobNome(obj.getSobNome());
+		newObj.setOrganizacao(obj.getOrganizacao());
 		
 	}
 	public List<Cliente> findAll(){
