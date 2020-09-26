@@ -61,12 +61,35 @@ public class ClienteService {
 		return clienteParametro;
 	}
 
+	public Cliente update(Cliente clienteParametro) {
+		
+		Cliente newObj = findById(clienteParametro.getId());
+		updateData(newObj, clienteParametro);
+		return clienteRepositories.save(newObj);
+		
+	}
 	public Cliente fromDTO(ClienteDto objDTO) {
-
-		return new Cliente(null,objDTO.getNome(), objDTO.getSobNome(), objDTO.getEmail(),
+		Cliente newCliente = new Cliente(null,objDTO.getNome(), objDTO.getSobNome(), objDTO.getEmail(),
 				pe.encode(objDTO.getSenha()));
+		
+		if (objDTO.getAutomated()==null)
+		{
+			newCliente.setAutomated(false);
+		}else 
+		{ newCliente.setAutomated(objDTO.getAutomated());}
+		
+		newCliente.setOrganizacao(objDTO.getOrganizacao());
+		return newCliente;
 	}
 
+
+	public void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+		newObj.setAutomated(obj.getAutomated());
+		newObj.setSobNome(obj.getSobNome());
+		
+	}
 	public List<Cliente> findAll(){
 		
 		UserSS userLogged = UserService.authenticated();

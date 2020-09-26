@@ -21,16 +21,39 @@ public class ClienteDto {
 	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String senha;
 	
+	private String organizacao;
+	
+	private Boolean automated;
+	
+	
+	public String getOrganizacao() {
+		return organizacao;
+	}
+
+	public void setOrganizacao(String organizacao) {
+		this.organizacao = organizacao;
+	}
+
+	public Boolean getAutomated() {
+		return automated;
+	}
+
+	public void setAutomated(Boolean automated) {
+		this.automated = automated;
+	}
+
 	public ClienteDto() {
 		
 	}
 	
-	public ClienteDto(String nome, String sobNome, String email) {
+	public ClienteDto(String nome, String sobNome, String email, String organizacao, Boolean automated) {
 		super();
 		
 		this.nome = nome;
 		this.sobNome = sobNome;
 		this.email = email;
+		this.organizacao = organizacao;
+		this.automated = automated;
 	}
 
 	public String getNome() {

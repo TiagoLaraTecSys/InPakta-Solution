@@ -51,6 +51,32 @@ public class Cliente {
 	@CollectionTable(name = "perfis")
 	private Set<Integer> perfis = new HashSet<>();
 	
+	private String organizacao;
+	
+	private Boolean automated;
+	
+	
+	
+	public Boolean getAutomated() {
+		return automated;
+	}
+
+
+	public void setAutomated(Boolean automated) {
+		this.automated = automated;
+	}
+
+
+	public String getOrganizacao() {
+		return organizacao;
+	}
+
+
+	public void setOrganizacao(String organizacao) {
+		this.organizacao = organizacao;
+	}
+
+
 	public Cliente() {
 		
 	}

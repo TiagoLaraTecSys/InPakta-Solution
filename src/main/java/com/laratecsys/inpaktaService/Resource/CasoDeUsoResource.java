@@ -1,6 +1,7 @@
 package com.laratecsys.inpaktaService.Resource;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,15 @@ public class CasoDeUsoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation("Listagem dos casos de uso")
+	@RequestMapping(value = "/listar",method = RequestMethod.GET)
+	private ResponseEntity<Object> listarCasosDeUso(){
+		
+		List<CasoDeUso> casosDeUso = service.listarCasosDeUso();
+	
+		return ResponseEntity.ok().body(casosDeUso);
+		
+	}
 	
 	
 }
