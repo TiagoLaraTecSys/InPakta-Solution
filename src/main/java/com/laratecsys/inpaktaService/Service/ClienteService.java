@@ -78,6 +78,11 @@ public class ClienteService {
 		{ newCliente.setAutomated(objDTO.getAutomated());}
 		
 		newCliente.setOrganizacao(objDTO.getOrganizacao());
+		
+		newCliente.setSubDominio(objDTO.getSubDominio());
+		newCliente.setCor(objDTO.getCor());
+		newCliente.setIcone(objDTO.getIcone());
+		
 		return newCliente;
 	}
 	
@@ -102,7 +107,9 @@ public class ClienteService {
 		newObj.setAutomated(obj.getAutomated());
 		newObj.setSobNome(obj.getSobNome());
 		newObj.setOrganizacao(obj.getOrganizacao());
-		
+		newObj.setSubDominio(obj.getSubDominio());
+		newObj.setCor(obj.getCor());
+		newObj.setIcone(obj.getCor());
 	}
 	public List<Cliente> findAll(){
 		

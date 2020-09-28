@@ -55,8 +55,42 @@ public class Cliente {
 	
 	private Boolean automated;
 	
+	private String subDominio;
+	private String cor;
+	private String icone;
 	
 	
+	
+	public String getSubDominio() {
+		return subDominio;
+	}
+
+
+	public void setSubDominio(String subDominio) {
+		this.subDominio = subDominio;
+	}
+
+
+	public String getCor() {
+		return cor;
+	}
+
+
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+
+
+	public String getIcone() {
+		return icone;
+	}
+
+
+	public void setIcone(String icone) {
+		this.icone = icone;
+	}
+
+
 	public Boolean getAutomated() {
 		return automated;
 	}
