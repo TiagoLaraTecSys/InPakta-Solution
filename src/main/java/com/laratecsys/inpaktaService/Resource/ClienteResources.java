@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Dto.ClienteDto;
 import com.laratecsys.inpaktaService.Dto.ClienteUpdateDto;
+import com.laratecsys.inpaktaService.Dto.OrganizacaoDTO;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.ClienteService;
 import com.laratecsys.inpaktaService.Service.UserService;
@@ -39,6 +41,15 @@ public class ClienteResources {
 		Cliente obj = clienteService.findById(id);
 		return ResponseEntity.ok().body(obj);
 		
+	}
+	
+	@RequestMapping(value="/org", method= RequestMethod.GET)
+	public ResponseEntity<OrganizacaoDTO> findBySubDominio(@RequestParam String subDominio){
+		
+		Cliente obj = clienteService.findBySubDominio(subDominio);
+		OrganizacaoDTO objDTO = clienteService.fromCliente(obj);
+		return ResponseEntity.ok().body(objDTO);
+	
 	}
 	
 	@RequestMapping(value="/infos", method = RequestMethod.GET)

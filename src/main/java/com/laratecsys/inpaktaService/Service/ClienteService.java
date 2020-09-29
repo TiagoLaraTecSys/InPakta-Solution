@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Dto.ClienteDto;
 import com.laratecsys.inpaktaService.Dto.ClienteUpdateDto;
+import com.laratecsys.inpaktaService.Dto.OrganizacaoDTO;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
@@ -44,7 +45,17 @@ public class ClienteService {
 		return novoCliente;
 	}
 
-	public Cliente insert(Cliente clienteParametro) {
+		public Cliente findBySubDominio(String subDominio) {
+			
+			Cliente novoCliente = new Cliente();
+			
+			novoCliente = clienteRepositories.findBySubDominio(subDominio);
+			
+			return novoCliente;
+			
+		}
+	
+		public Cliente insert(Cliente clienteParametro) {
 
 		Cliente novoCliente = findByEmail(clienteParametro.getEmail());
 
@@ -100,7 +111,21 @@ public class ClienteService {
 		return newCliente;
 	}
 
-
+	public OrganizacaoDTO fromCliente(Cliente obj) {
+		
+		OrganizacaoDTO objDTO = new OrganizacaoDTO();
+		
+		objDTO.setEmail(obj.getEmail());
+		objDTO.setOrganizacao(obj.getOrganizacao());
+		objDTO.setSubDominio(obj.getSubDominio());
+		objDTO.setCor(obj.getCor());
+		objDTO.setIcone(obj.getIcone());
+		objDTO.setCasoDeUso(obj.getCasoDeUso());
+		
+		return objDTO;
+		
+	}
+	
 	public void updateData(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());

@@ -10,5 +10,8 @@ public interface ClienteRepositories extends JpaRepository<Cliente, Integer> {
 	
 	@Transactional(readOnly = true)
 	public Cliente findByEmail(String email);
+	
+	@Transactional(readOnly = true)
+	public Cliente findBySubDominio(String subDominio);
 
 }
