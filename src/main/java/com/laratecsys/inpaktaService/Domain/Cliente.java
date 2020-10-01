@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.FileProperties;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.Subject;
 import com.laratecsys.inpaktaService.Enum.Perfil;
 import com.laratecsys.inpaktaService.Enum.TipoCliente;
 
@@ -47,6 +48,9 @@ public class Cliente {
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)
 	private List<CasoDeUso> casoDeUso = new ArrayList<>();
 	
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)
+	private List<Subject> subject = new ArrayList<>();
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "perfis")
 	private Set<Integer> perfis = new HashSet<>();
@@ -57,7 +61,7 @@ public class Cliente {
 	
 	private String subDominio;
 	private String cor;
-	private String icone;
+	private Byte[] icone;
 	
 	
 	
@@ -81,12 +85,12 @@ public class Cliente {
 	}
 
 
-	public String getIcone() {
+	public Byte[] getIcone() {
 		return icone;
 	}
 
 
-	public void setIcone(String icone) {
+	public void setIcone(Byte[] icone) {
 		this.icone = icone;
 	}
 

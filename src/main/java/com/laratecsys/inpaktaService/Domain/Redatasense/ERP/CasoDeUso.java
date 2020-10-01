@@ -57,8 +57,6 @@ public class CasoDeUso {
 		this.dadosPessoais = dadosPessoais;
 	}
 	
-	
-
 	public Set<DataLifeCycle> getLifecycles() {
 		return lifecycles.stream().map(x -> DataLifeCycle.toEnum(x)).collect(Collectors.toSet());
 	}

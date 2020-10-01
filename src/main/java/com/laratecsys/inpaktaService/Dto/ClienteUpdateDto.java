@@ -24,7 +24,7 @@ public class ClienteUpdateDto {
 	
 	private String subDominio;
 	private String cor;
-	private String icone;
+	private Byte[] icone;
 	
 	
 	public String getSubDominio() {
@@ -43,11 +43,11 @@ public class ClienteUpdateDto {
 		this.cor = cor;
 	}
 
-	public String getIcone() {
+	public Byte[] getIcone() {
 		return icone;
 	}
 
-	public void setIcone(String icone) {
+	public void setIcone(Byte[] icone) {
 		this.icone = icone;
 	}
 
@@ -72,7 +72,7 @@ public class ClienteUpdateDto {
 	}
 	
 	public ClienteUpdateDto(String nome, String sobNome, 
-			String email, String organizacao, Boolean automated,String subDominio,String cor, String icone) {
+			String email, String organizacao, Boolean automated,String subDominio,String cor, Byte[] icone) {
 		super();
 		
 		this.nome = nome;
