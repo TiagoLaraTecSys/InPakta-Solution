@@ -134,7 +134,7 @@ public class ClienteService {
 		newObj.setOrganizacao(obj.getOrganizacao());
 		newObj.setSubDominio(obj.getSubDominio());
 		newObj.setCor(obj.getCor());
-		newObj.setIcone(obj.getCor());
+		newObj.setIcone(obj.getIcone());
 	}
 	public List<Cliente> findAll(){
 		
