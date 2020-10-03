@@ -13,7 +13,7 @@ public class OrganizacaoDTO {
 	
 	private String subDominio;
 	private String cor;
-	private Byte[] icone;
+	private String icone;
 	
 	private List<CasoDeUso> casoDeUso = new ArrayList<>();
 	
@@ -53,11 +53,11 @@ public class OrganizacaoDTO {
 		this.cor = cor;
 	}
 
-	public Byte[] getIcone() {
+	public String getIcone() {
 		return icone;
 	}
 
-	public void setIcone(Byte[] icone) {
+	public void setIcone(String icone) {
 		this.icone = icone;
 	}
 

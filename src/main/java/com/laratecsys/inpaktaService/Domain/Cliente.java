@@ -61,7 +61,7 @@ public class Cliente {
 	
 	private String subDominio;
 	private String cor;
-	private Byte[] icone;
+	private String icone;
 	
 	
 	
@@ -85,12 +85,12 @@ public class Cliente {
 	}
 
 
-	public Byte[] getIcone() {
+	public String getIcone() {
 		return icone;
 	}
 
 
-	public void setIcone(Byte[] icone) {
+	public void setIcone(String icone) {
 		this.icone = icone;
 	}
 
@@ -140,6 +140,16 @@ public class Cliente {
 		this.email = email;
 		this.senha = senha;
 		
+	}
+
+
+	public List<Subject> getSubject() {
+		return subject;
+	}
+
+
+	public void setSubject(List<Subject> subject) {
+		this.subject = subject;
 	}
 
 

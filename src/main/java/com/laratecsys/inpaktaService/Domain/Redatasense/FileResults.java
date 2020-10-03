@@ -42,7 +42,7 @@ public class FileResults implements Serializable{
 
 	
 
-		
+	
 	public FileResults() {
 	
 	}

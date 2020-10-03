@@ -43,11 +43,11 @@ public class FileProperties implements Serializable{
 	@OneToMany(mappedBy="fileProperties", cascade = CascadeType.ALL)
 	private List<FileResults> fileResults = new ArrayList<>();
 	
+	
 	public FileProperties() {
 		
 	}
 	
-
 	public FileProperties(Integer id, String limiteDeProbabilidade, String modeloGenerico, String token, String modelos,
 			String diretorios, String arquivosExcluidos, String pastaDoDicionario, String extensaoArquivo,
 			String nERmodel, Date dataInsercao, Cliente cliente) {
@@ -67,6 +67,7 @@ public class FileProperties implements Serializable{
 
 	}
 
+	
 
 	public Integer getId() {
 		return id;
