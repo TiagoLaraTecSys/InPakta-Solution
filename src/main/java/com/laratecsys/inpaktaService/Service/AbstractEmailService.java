@@ -13,6 +13,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.Subject;
 
 public abstract class AbstractEmailService implements EmailService {
 
@@ -37,11 +38,32 @@ public abstract class AbstractEmailService implements EmailService {
 		}
 
 	}
+	
+	@Override
+	public void sendSubjectCodeVerification(Subject subject) {
+		
+		MimeMessage mm;
+		
+		try {
+			mm = prepareMimeMessage(subject);
+			
+			
+		}catch (MessagingException e){
+			throw new RuntimeException(e);
+		}
+	}
 
 	protected String htmlFromTemplateCliente(Cliente obj) {
 		Context context = new Context();
 		context.setVariable("pedido", obj);
 		return templateEngine.process("email/confirmacaoEmail", context);
+
+	}
+	
+	protected String htmlFromTemplateSubject(Subject obj) {
+		Context context = new Context();
+		context.setVariable("subject", obj);
+		return templateEngine.process("email/codigoValidador", context);
 
 	}
 
@@ -56,6 +78,23 @@ public abstract class AbstractEmailService implements EmailService {
 		newMMH.setSentDate(new Date(System.currentTimeMillis()));
 
 		newMMH.setText(htmlFromTemplateCliente(obj), true);
+
+		return newMM;
+
+	}
+	
+	protected MimeMessage prepareMimeMessage(Subject obj) throws MessagingException {
+
+		MimeMessage newMM = javaMailSender.createMimeMessage();
+		MimeMessageHelper newMMH = new MimeMessageHelper(newMM, true);
+
+		newMMH.setTo(obj.getEmail());
+		newMMH.setFrom(sender);
+		
+		newMMH.setSubject("CÓDIGO DE VERIFICAÇÃO");
+		newMMH.setSentDate(new Date(System.currentTimeMillis()));
+
+		newMMH.setText(htmlFromTemplateSubject(obj), true);
 
 		return newMM;
 

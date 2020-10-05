@@ -2,14 +2,8 @@ package com.laratecsys.inpaktaService.Domain.Redatasense.ERP;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
-import com.laratecsys.inpaktaService.Enum.DataLifeCycle;
 import com.laratecsys.inpaktaService.Enum.TipoSubject;
 
 @Entity
@@ -37,22 +30,19 @@ public class Subject implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name= "tiposolicitacao")
-	private Set<Integer> solicitacao = new HashSet<>();
+	private Integer subjectTipo;
 	
 	public Subject() {
 		
 	}
 	
-	public void addSolicitacao(TipoSubject solicit) {
-		solicitacao.add(solicit.getCod());
+	public TipoSubject getSubjectTipo() {
+		return TipoSubject.toEnum(subjectTipo);
 	}
 
-	public Set<TipoSubject> getSolicitacao() {
-		return solicitacao.stream().map(x -> TipoSubject.toEnum(x)).collect(Collectors.toSet());
+	public void setSubjectTipo(TipoSubject tipoSubject) {
+		this.subjectTipo = tipoSubject.getCod();
 	}
-
 	
 	public Subject(Integer id, Date data, String email, String codigoValidacao, Boolean validado) {
 		super();

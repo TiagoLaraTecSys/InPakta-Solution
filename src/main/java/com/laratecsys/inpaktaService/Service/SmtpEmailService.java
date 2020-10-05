@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.Subject;
+
 public class SmtpEmailService extends AbstractEmailService {
 
 	@Autowired
@@ -21,5 +23,6 @@ public class SmtpEmailService extends AbstractEmailService {
 		LOG.info("Email enviado!");
 
 	}
+
 
 }
