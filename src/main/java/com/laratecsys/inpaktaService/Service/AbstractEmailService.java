@@ -46,7 +46,7 @@ public abstract class AbstractEmailService implements EmailService {
 		
 		try {
 			mm = prepareMimeMessage(subject);
-			
+			sendHtmlEmail(mm);
 			
 		}catch (MessagingException e){
 			throw new RuntimeException(e);
