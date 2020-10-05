@@ -49,7 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		"/h2-console/**",
 		"/cliente/emails/andre",
-		"/cliente/org/**"
+		"/cliente/org/**",
+		"/subject/**"
 	};
 
 
