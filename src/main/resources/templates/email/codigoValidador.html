@@ -7,12 +7,12 @@
 <style th:inline="css">
 	@font-face {
 		font-family: VisbyCF-Medium;
-		src: url(https://inpaktaservice.herokuapp.com/visby/VisbyCF-Medium.otf);
+		src: url('./visby/VisbyCF-Medium.otf') format('otf');
 		font-weight: bold;
 	}
 	 @font-face{
 
-        src: url(https://inpaktaservice.herokuapp.com/visby/VisbyCF-Bold.otf);
+        src: url('./visby/VisbyCF-Bold.otf') format('otf');
 
         font-family: VisbyCF-Bold;
 
@@ -23,7 +23,7 @@
 		font-family: VisbyCF-Medium;
 	}
 	.principal{
-		display: flex;
+
 		flex-direction: column;
 		margin-left: auto;
 		margin-right: auto;
@@ -44,13 +44,15 @@
 		height: auto;
 		padding-bottom: 10px;
 		color: white;
-		font-family: VisbyCF-Bold;
+		
 		text-align: center;
+		display: flow-root;
 	}
 	h1{
-		align-self: center;
+		text-align: center;
 		font-family: VisbyCF-Bold;
 		margin-top: 80px;
+		border: 1px #2ff895 solid;
 	}
 	.descritivo{
 		margin-left: auto;
@@ -60,7 +62,7 @@
 	.rodape{
 		align-self: center;
 		text-align: center;
-		font-family: VisbyCF-Medium;
+		
 		margin-top: 80px;
 		padding-bottom: 20px;
 	}
@@ -76,8 +78,9 @@
 		<div class="descritivo">
 			<h3>Use esse código para conseguir acessar a opção selecionada no centro de privacidade</h3>
 		</div>
-
-		<h1 ><span th:text="${subject.codigoValidacao}"> </span></h1>
+		<div class="descritivo">
+			<h1 ><span th:text="${subject.codigoValidacao}"> </span></h1>
+		</div>
 		<div class="rodape">
 			<p>Atenciosamente!</p>
 			<img src="https://www.linkpicture.com/q/IconLetter.png" width="25%" height="25%">

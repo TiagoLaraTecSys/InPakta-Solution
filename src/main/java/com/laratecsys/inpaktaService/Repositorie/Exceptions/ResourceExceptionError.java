@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
-import com.laratecsys.inpaktaService.Service.exception.ConstraitException;
 import com.laratecsys.inpaktaService.Service.exception.DataIntegrityException;
 import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
@@ -53,14 +52,4 @@ public class ResourceExceptionError {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 	
-	@ExceptionHandler(ConstraitException.class)
-	public ResponseEntity<StandardError> constraitForeignKey(ConstraitException e, HttpServletRequest request){
-		
-		StandardError err = new StandardError(System.currentTimeMillis(),HttpStatus.BAD_REQUEST.value(), "Relação não encontrada",
-				e.getMessage(), request.getRequestURI());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
-		
-	}
-	
-
 }
