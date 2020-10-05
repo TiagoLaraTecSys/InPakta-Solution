@@ -4,15 +4,15 @@
 <title th:remove="all">Order Confirmation</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<style>
+<style th:inline="css">
 	@font-face {
 		font-family: VisbyCF-Medium;
-		src: url(../visby/VisbyCF-Medium.otf);
+		src: url(https://inpaktaservice.herokuapp.com/visby/VisbyCF-Medium.otf);
 		font-weight: bold;
 	}
 	 @font-face{
 
-        src: url(../visby/VisbyCF-Bold.otf);
+        src: url(https://inpaktaservice.herokuapp.com/visby/VisbyCF-Bold.otf);
 
         font-family: VisbyCF-Bold;
 
@@ -67,15 +67,17 @@
 </style>
 </head>
 <body>
-	<div class="principal">
+	<div th:class="@{principal}">
+		
 		<div class="cabecalio">
+		
 			<h2>CÓDIGO DE VERIFICAÇÃO</h2>
 		</div>
 		<div class="descritivo">
 			<h3>Use esse código para conseguir acessar a opção selecionada no centro de privacidade</h3>
 		</div>
 
-		<h1><span th:text="${subject.codigoValidacao}"> </span></h1>
+		<h1 ><span th:text="${subject.codigoValidacao}"> </span></h1>
 		<div class="rodape">
 			<p>Atenciosamente!</p>
 			<img src="https://www.linkpicture.com/q/IconLetter.png" width="25%" height="25%">
