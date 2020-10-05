@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Enum.TipoSubject;
 
@@ -28,6 +29,7 @@ public class Subject implements Serializable{
 	
 	@ManyToOne()
 	@JoinColumn(name = "cliente_id")
+	@JsonIgnore
 	private Cliente cliente;
 	
 	private Integer subjectTipo;
