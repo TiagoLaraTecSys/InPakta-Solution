@@ -46,7 +46,7 @@ public class SubjectService {
 		return newSubject;
 	}
 	
-	public List<Subject> listarCasosDeUso(String subDominio){
+	public List<Subject> listarSubject(String subDominio){
 			
 		List<Subject> returned = clienteRepositories.findAllBySubDominio(subDominio);	
 		return returned;
