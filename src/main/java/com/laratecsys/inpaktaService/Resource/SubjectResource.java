@@ -37,7 +37,7 @@ public class SubjectResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(subject.getId()).toUri();
 		
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.ok().body(subject.getCodigoValidacao());
 	}
 	
 	@ApiOperation("Listagem dos casos de uso")
