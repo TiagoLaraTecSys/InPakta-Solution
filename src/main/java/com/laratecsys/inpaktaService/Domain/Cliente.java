@@ -48,9 +48,11 @@ public class Cliente {
 	private String senha;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<DbProperties> dbProperties = new ArrayList<>();
 	
 	@OneToMany(mappedBy= "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<FileProperties> fileProperties = new ArrayList<>();
 	
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)

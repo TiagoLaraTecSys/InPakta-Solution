@@ -40,7 +40,14 @@ public class SubjectResource {
 		return ResponseEntity.ok().body(subject.getCodigoValidacao());
 	}
 	
-	@ApiOperation("Listagem dos casos de uso")
+	@RequestMapping(method = RequestMethod.PUT)
+	private ResponseEntity<Object> atualizarSubject(@RequestParam String validatecode ){
+		
+		service.validateCode(validatecode);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@ApiOperation("Listagem dos subjects")
 	@RequestMapping(value = "/listar",method = RequestMethod.GET)
 	private ResponseEntity<Object> listarSubject(@RequestParam String subDominio){
 		

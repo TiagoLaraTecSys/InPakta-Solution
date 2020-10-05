@@ -13,6 +13,7 @@ import com.laratecsys.inpaktaService.Enum.TipoSubject;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Repositorie.SubjectRepositories;
 import com.laratecsys.inpaktaService.Service.Validations.Utils.ValidatorCode;
+import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
 @Service
 public class SubjectService {
@@ -46,6 +47,21 @@ public class SubjectService {
 		return newSubject;
 	}
 	
+	
+	public Subject validateCode(String validatecode) {
+		
+	
+		Subject newObj = subjectRepositories.findByCodigoValidacao(validatecode);
+		
+		if (newObj == null) {
+			throw new ObjectNotFoundException("Código não encontrado!");
+		}
+		
+		newObj.setValidado(true);
+		
+		return subjectRepositories.save(newObj);
+	}
+
 	public List<Subject> listarSubject(String subDominio){
 			
 		List<Subject> returned = clienteRepositories.findAllBySubDominio(subDominio);	
