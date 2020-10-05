@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -68,6 +69,7 @@ public class Cliente {
 	
 	private String subDominio;
 	private String cor;
+	@Column(columnDefinition = "LONGTEXT")
 	private String icone;
 	
 	
