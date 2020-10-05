@@ -9,7 +9,7 @@ public class ClienteUpdateDto {
 	
 	
 	@NotEmpty(message = "Preenchimento obrigatório!")
-	@Length(min=5, max=120, message = "Tamanho máximo 120 e mínimo 5")
+	@Length(min=2, max=120, message = "Tamanho máximo 120 e mínimo 5")
 	private String nome;
 	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String sobNome;

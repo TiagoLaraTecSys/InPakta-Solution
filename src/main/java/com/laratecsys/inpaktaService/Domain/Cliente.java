@@ -15,6 +15,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
@@ -32,6 +36,9 @@ public class Cliente {
 	private Integer id;
 	private String nome;
 	private String sobNome;
+	@Length(min=5, max=120, message = "Tamanho máximo 120 e mínimo 5")
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	@Email
 	private String email;
 	private String CpfOuCnpj;
 	private Integer tipoCliente;

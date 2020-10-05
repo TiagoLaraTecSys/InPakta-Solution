@@ -49,8 +49,8 @@ public class Subject implements Serializable{
 		solicitacao.add(solicit.getCod());
 	}
 
-	public Set<DataLifeCycle> getSolicitacao() {
-		return solicitacao.stream().map(x -> DataLifeCycle.toEnum(x)).collect(Collectors.toSet());
+	public Set<TipoSubject> getSolicitacao() {
+		return solicitacao.stream().map(x -> TipoSubject.toEnum(x)).collect(Collectors.toSet());
 	}
 
 	
