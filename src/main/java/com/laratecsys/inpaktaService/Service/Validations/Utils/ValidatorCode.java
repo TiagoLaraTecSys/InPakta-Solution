@@ -19,7 +19,8 @@ public class ValidatorCode {
 	
 	private static char randomChar() {
 		 
-		int opt = rand.nextInt(3);
+		//int opt = rand.nextInt(3);
+		int opt = 0;
 		char s = 0;
 		switch (opt) {
 		case 0:
