@@ -25,7 +25,7 @@ public class ValidatorCode {
 		switch (opt) {
 		case 0:
 			
-			s = (char) (rand.nextInt(10) + 48);
+			s = (char) (rand.nextInt(10) + 30);
 			
 		case 1:
 			
