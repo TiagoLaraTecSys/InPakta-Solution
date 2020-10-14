@@ -120,18 +120,18 @@ public abstract class AbstractEmailService implements EmailService {
 
 	}
 
-	protected MimeMessage prepareMimeMessageConfirmSubject(Subject updated){
+	protected MimeMessage prepareMimeMessageConfirmSubject(Subject updated) throws MessagingException{
 
 		MimeMessage newMM = javaMailSender.createMimeMessage();
-		MimeMessageHelper newMMH = new MimeMessageHelper(newWW, true);
+		MimeMessageHelper newMMH = new MimeMessageHelper(newMM, true);
 
-		newMMH.setTo(obj.getEmail());
+		newMMH.setTo(updated.getEmail());
 		newMMH.setFrom(sender);
 
 		newMMH.setSubject("Confirmação do Pedido");
 		newMMH.setSentDate(new Date(System.currentTimeMillis()));
 
-		new.setText(htmlFomTemplateSubject(update), true);
+		newMMH.setText(htmlFromTemplateConfirmSubject(updated), true);
 
 		return newMM;
 	}
