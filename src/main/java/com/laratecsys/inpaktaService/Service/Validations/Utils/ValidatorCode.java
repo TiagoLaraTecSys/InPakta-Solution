@@ -11,7 +11,7 @@ public class ValidatorCode {
 		
 		for (int i = 0; i < vet.length; i++) {
 			
-			vet[i] = randomChar();
+			vet[i] = rand.nextInt(10);
 		}
 		
 		return new String(vet);
@@ -25,7 +25,7 @@ public class ValidatorCode {
 		switch (opt) {
 		case 0:
 			
-			s = (char) (rand.nextInt(10) + 48);
+			s = (rand.nextInt(10) + 48);
 			
 		case 1:
 			

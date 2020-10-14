@@ -58,7 +58,7 @@ public class SubjectService {
 		}
 		
 		newObj.setValidado(true);
-		
+		emailService.sendSubjectConfirmation(newObj);
 		return subjectRepositories.save(newObj);
 	}
 

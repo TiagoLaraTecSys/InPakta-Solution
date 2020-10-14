@@ -53,6 +53,19 @@ public abstract class AbstractEmailService implements EmailService {
 		}
 	}
 
+	@Override
+	public void sendSubjectConfirmation(Subject updatedSubject) {
+
+		MimeMessage mm;
+		
+		try {
+			mm = prepareMimeMessageConfirmSubject(updatedSubject);
+			sendHtmlEmail(mm);
+		}catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	protected String htmlFromTemplateCliente(Cliente obj) {
 		Context context = new Context();
 		context.setVariable("pedido", obj);
@@ -65,6 +78,13 @@ public abstract class AbstractEmailService implements EmailService {
 		context.setVariable("subject", obj);
 		return templateEngine.process("email/codigoValidador", context);
 
+	}
+
+	protected String htmlFromTemplateConfirmSubject(Subject update){
+		Context context = new Context();
+		context.setVariable("subject", update);
+		
+		return templateEngine.process("email/codigoValidadorConfirmacao", context);
 	}
 
 	protected MimeMessage prepareMimeMessage(Cliente obj) throws MessagingException {
@@ -98,6 +118,22 @@ public abstract class AbstractEmailService implements EmailService {
 
 		return newMM;
 
+	}
+
+	protected MimeMessage prepareMimeMessageConfirmSubject(Subject updated){
+
+		MimeMessage newMM = javaMailSender.createMimeMessage();
+		MimeMessageHelper newMMH = new MimeMessageHelper(newWW, true);
+
+		newMMH.setTo(obj.getEmail());
+		newMMH.setFrom(sender);
+
+		newMMH.setSubject("Confirmação do Pedido");
+		newMMH.setSentDate(new Date(System.currentTimeMillis()));
+
+		new.setText(htmlFomTemplateSubject(update), true);
+
+		return newMM;
 	}
 
 }

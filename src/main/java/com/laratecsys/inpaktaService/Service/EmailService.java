@@ -12,5 +12,7 @@ public interface EmailService {
 	void sendHtmlEmail(MimeMessage mm);
 
 	void sendSubjectCodeVerification(Subject newSubject);
+
+	void sendSubjectConfirmation(Subject updateSubject);
 	
 }
