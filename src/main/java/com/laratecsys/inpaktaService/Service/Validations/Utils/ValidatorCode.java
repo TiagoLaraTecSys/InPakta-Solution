@@ -22,19 +22,10 @@ public class ValidatorCode {
 		//int opt = rand.nextInt(3);
 		int opt = 0;
 		char s = 0;
-		switch (opt) {
-		case 0:
+		
+		s = (char) (rand.nextInt(10) + 48);
 			
-			s = (char) (rand.nextInt(10) + 30);
-			
-		case 1:
-			
-			s = (char) (rand.nextInt(26) + 65);
-		case 2:
-			
-			s = (char) (rand.nextInt(26) + 97);
-
-		}
+		
 		return s;
 	
 	}
