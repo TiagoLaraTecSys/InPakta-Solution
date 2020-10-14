@@ -83,9 +83,10 @@ public abstract class AbstractEmailService implements EmailService {
 	protected String htmlFromTemplateConfirmSubject(Subject update){
 		Context context = new Context();
 		context.setVariable("subject", update);
-		
+		context.setVariable("tipo", update.getSubjectTipo().getDescricao());
 		return templateEngine.process("email/codigoValidadorConfirmacao", context);
 	}
+
 
 	protected MimeMessage prepareMimeMessage(Cliente obj) throws MessagingException {
 
