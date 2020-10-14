@@ -11,7 +11,7 @@ public class ValidatorCode {
 		
 		for (int i = 0; i < vet.length; i++) {
 			
-			vet[i] = randomChar();
+			vet[i] =(char) rand.nextInt(10);
 		}
 		
 		return new String(vet);
