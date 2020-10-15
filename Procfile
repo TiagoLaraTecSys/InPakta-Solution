@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dspring.profiles.active=dev $JAVA_OPTS -jar target/inpaktaService-0.0.1-SNAPSHOT.jar 
+web: java -Dserver.port=$PORT -Dspring.profiles.active=dev $JAVA_OPTS -jar -Djavax.net.ssl.trustStore=path/to/keystore -Djavax.net.ssl.trustStorePassword=changeit target/inpaktaService-0.0.1-SNAPSHOT.jar 
