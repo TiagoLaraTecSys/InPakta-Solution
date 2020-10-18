@@ -73,9 +73,18 @@ public class Cliente {
 	private String cor;
 	@Column(columnDefinition = "LONGTEXT")
 	private String icone;
+	@Column(columnDefinition = "LONGTEXT")
+	private String foto_perfil;
 	
-	
-	
+	public String getFoto_perfil() {
+		return foto_perfil;
+	}
+
+	public void setFoto_perfil(String foto_perfil) {
+		this.foto_perfil = foto_perfil;
+	}
+
+
 	public String getSubDominio() {
 		return subDominio;
 	}
