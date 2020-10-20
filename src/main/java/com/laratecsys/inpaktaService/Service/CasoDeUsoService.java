@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
@@ -57,6 +60,17 @@ public class CasoDeUsoService {
 	
 		return returned;
 	
+	}
+	
+	public Page<CasoDeUso> findAllPage(Integer page, Integer linesPerPage, String direction, String orderBy){
+		
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		
+		UserSS userLogged = UserService.authenticated();
+		
+		
+		
+		return casoDeUsoRepositories.findAllByClienteId(userLogged.getId(), pageRequest);
 	}
 
 }

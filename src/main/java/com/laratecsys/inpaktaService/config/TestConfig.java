@@ -50,7 +50,7 @@ public class TestConfig implements CommandLineRunner {
 
 		Cliente teste = new Cliente(null, "Tiago", "de Lara Ribeiro", "tiagolararibeiro1998@gmail.com",
 				pe.encode("1234"));
-
+		
 		DatadiscoveryProperties newDatadiscoveryProperties = new DatadiscoveryProperties(null,0.6, "pt-ner-multi.bin",
 				"en-token.bin", "MYTABLE_TO_IGNORE", 1000, 6, 3, 0,
 				"com.strider.datadefender.specialcase.SinDetector.detectSin", "model_generic", "nomes.xml", "NERRegex");
