@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,5 +58,17 @@ public class SubjectResource {
 		
 	}
 	
+	@ApiOperation("Listagem dos pedidos com paginação")
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	private ResponseEntity<Page<Subject>> subjectPage(
+			@RequestParam(defaultValue = "0",name = "page") Integer page,
+			@RequestParam(defaultValue = "10", name = "linesPerPage") Integer linesPerPage,
+			@RequestParam(defaultValue = "id", name="orderBy") String orderBy,
+			@RequestParam(defaultValue = "DESC", name="direction") String direction){
+		
+		Page<Subject> list = service.listarSubjectPage(page, linesPerPage, direction, orderBy);
+		
+		return ResponseEntity.ok().body(list);
+	}
 	
 }

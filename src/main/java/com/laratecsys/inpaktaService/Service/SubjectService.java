@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
@@ -12,7 +15,9 @@ import com.laratecsys.inpaktaService.Dto.SubjectDTO;
 import com.laratecsys.inpaktaService.Enum.TipoSubject;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Repositorie.SubjectRepositories;
+import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.Validations.Utils.ValidatorCode;
+import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
 import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
 @Service
@@ -67,6 +72,20 @@ public class SubjectService {
 		List<Subject> returned = clienteRepositories.findAllBySubDominio(subDominio);	
 		return returned;
 	
+	}
+	
+	public Page<Subject> listarSubjectPage(Integer page, Integer linesPerPage, String direction, String orderBy){
+		
+		UserSS userLogged = UserService.authenticated();
+		
+		if (userLogged == null) {
+			throw new AuthorizationException("Usuário não logado!");
+		}
+		
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		
+		return subjectRepositories.findAllByClienteId(userLogged.getId(), pageRequest);
+		
 	}
 
 }
