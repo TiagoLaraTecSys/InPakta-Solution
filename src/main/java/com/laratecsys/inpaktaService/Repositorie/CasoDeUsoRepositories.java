@@ -18,3 +18,4 @@ public interface CasoDeUsoRepositories extends JpaRepository<CasoDeUso, Integer>
 	
 	Page<CasoDeUso> findAllByClienteId(Integer id, Pageable pageRequest);
 } 
+  
