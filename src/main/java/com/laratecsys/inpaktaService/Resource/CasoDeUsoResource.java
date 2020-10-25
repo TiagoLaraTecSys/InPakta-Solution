@@ -61,7 +61,7 @@ public class CasoDeUsoResource {
 		return ResponseEntity.ok().body(list);	
 	}
 	
-	@RequestMapping(value="/delete", method = RequestMethod.DELETE)
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	private ResponseEntity<CasoDeUso> delete(@PathVariable Integer id){
 		
 		service.deletarCasoDeUso(id);
