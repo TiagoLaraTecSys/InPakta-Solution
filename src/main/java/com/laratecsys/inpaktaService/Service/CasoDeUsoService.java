@@ -2,6 +2,7 @@ package com.laratecsys.inpaktaService.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DadosPessoaisRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
+import com.laratecsys.inpaktaService.Service.exception.ObjectNotFoundException;
 
 @Service
 public class CasoDeUsoService {
@@ -25,6 +27,21 @@ public class CasoDeUsoService {
 	
 	@Autowired
 	private DadosPessoaisRepositories dadosPessoaisRepositories;
+	
+	
+	public CasoDeUso find(Integer id) {
+		
+		UserSS userLogged = UserService.authenticated();
+		Optional<CasoDeUso> caso = casoDeUsoRepositories.findById(id);
+		
+		if(!caso.get().getCliente().getId().equals(userLogged.getId())) {
+			throw new AuthorizationException("Usuário não autorizado");
+		}
+		
+		
+		return caso.orElseThrow(() -> 
+			new ObjectNotFoundException("Caso de Uso não encontrado"));
+	}
 	
 	public CasoDeUso inserirCasoDeUso(CasoDeUso casoDeUso) {
 		
@@ -46,6 +63,13 @@ public class CasoDeUsoService {
 		}
 		 dadosPessoaisRepositories.saveAll(newDados);
 		 return newCaso;
+	}
+	
+	
+	public void deletarCasoDeUso(Integer id) {
+		
+		
+		casoDeUsoRepositories.deleteById(id);
 	}
 	
 	public List<CasoDeUso> listarCasosDeUso(){
