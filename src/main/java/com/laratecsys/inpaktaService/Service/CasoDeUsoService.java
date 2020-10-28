@@ -1,6 +1,5 @@
 package com.laratecsys.inpaktaService.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,11 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosCasoDeUso;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosPessoais;
 import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
+import com.laratecsys.inpaktaService.Repositorie.DadosCasoDeUsoRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DadosPessoaisRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
 import com.laratecsys.inpaktaService.Service.exception.AuthorizationException;
@@ -28,6 +30,11 @@ public class CasoDeUsoService {
 	@Autowired
 	private DadosPessoaisRepositories dadosPessoaisRepositories;
 	
+	@Autowired
+	private DadosPessoaisService dadosPessoaisService;
+	
+	@Autowired
+	private DadosCasoDeUsoRepositories dadosCasoDeUsoRepositories;
 	
 	public CasoDeUso find(Integer id) {
 		
@@ -42,7 +49,7 @@ public class CasoDeUsoService {
 		return caso.orElseThrow(() -> 
 			new ObjectNotFoundException("Caso de Uso não encontrado"));
 	}
-	
+	@Transactional
 	public CasoDeUso inserirCasoDeUso(CasoDeUso casoDeUso) {
 		
 		UserSS userLogged = UserService.authenticated();
@@ -55,16 +62,33 @@ public class CasoDeUsoService {
 		Cliente logged = new Cliente(userLogged.getId(),null,null,null,null);
 
 		 casoDeUso.setCliente(logged);	
-		 CasoDeUso newCaso = casoDeUsoRepositories.save(casoDeUso);
-		 List<DadosPessoais> newDados = new ArrayList<>();
-		 for (DadosPessoais dad : casoDeUso.getDadosPessoais()) {
-			 dad.setCasoDeUso(newCaso);
-			 newDados.add(dad);
-		}
-		 dadosPessoaisRepositories.saveAll(newDados);
-		 return newCaso;
+		 casoDeUso = casoDeUsoRepositories.save(casoDeUso);
+		 
+		 for(DadosCasoDeUso x : casoDeUso.getItens()) {
+			 System.out.println(x.toString());
+			 x.setDadosPessoais(dadosPessoaisService.find(1));
+			 x.setCasoDeUso(casoDeUso);
+		 }
+		 
+		 dadosCasoDeUsoRepositories.saveAll(casoDeUso.getItens());
+		 return casoDeUso;
 	}
 	
+	public CasoDeUso atualizarCasoDeUso(CasoDeUso casoDeUso) {
+		
+		CasoDeUso newCaso = find(casoDeUso.getId());
+		updateData(newCaso, casoDeUso);
+		return casoDeUsoRepositories.save(newCaso);
+		
+	}
+	
+	public void updateData(CasoDeUso newObj, CasoDeUso obj) {
+		
+		newObj.setNome(obj.getNome());
+		newObj.setDescricao(obj.getDescricao());
+		newObj.setUseConsent(obj.getUseConsent());
+		newObj.getLifecycles().addAll(obj.getLifecycles());
+	}
 	
 	public void deletarCasoDeUso(Integer id) {
 		

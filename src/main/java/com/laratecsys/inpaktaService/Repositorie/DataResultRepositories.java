@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DataResult;
 
+@Repository
 public interface DataResultRepositories extends JpaRepository<DataResult, Integer> {
 	
 	@Query("SELECT dr FROM DataResult dr"

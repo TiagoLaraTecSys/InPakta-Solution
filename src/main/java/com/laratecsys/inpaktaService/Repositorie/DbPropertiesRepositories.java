@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.DbProperties;
 
+@Repository
 public interface DbPropertiesRepositories extends JpaRepository<DbProperties, Integer> {
 	
 	@Query("SELECT t FROM DbProperties t where t.cliente IN :id and t.isActive=1")

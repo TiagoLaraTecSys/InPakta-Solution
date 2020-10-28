@@ -3,10 +3,9 @@ package com.laratecsys.inpaktaService.Repositorie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosPessoais;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosCasoDeUso;
 
 @Repository
-public interface DadosPessoaisRepositories extends JpaRepository<DadosPessoais, Integer> {
-	
+public interface DadosCasoDeUsoRepositories extends JpaRepository<DadosCasoDeUso, Integer> {
 
 }

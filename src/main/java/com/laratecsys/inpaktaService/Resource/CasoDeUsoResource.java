@@ -68,4 +68,11 @@ public class CasoDeUsoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT)
+	private ResponseEntity<CasoDeUso> update(@RequestBody CasoDeUso obj){
+		
+		CasoDeUso newCaso = service.atualizarCasoDeUso(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
 }

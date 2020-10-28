@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
 
+@Repository
 public interface CasoDeUsoRepositories extends JpaRepository<CasoDeUso, Integer> {
 	
 	@Transactional

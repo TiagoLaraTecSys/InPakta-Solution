@@ -1,8 +1,6 @@
 package com.laratecsys.inpaktaService.Domain.Redatasense.ERP;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,8 +29,8 @@ public class CasoDeUso {
 	private String nome;
 	private String descricao;
 	
-	@OneToMany(mappedBy="casoDeUso", cascade= CascadeType.ALL)
-	private List<DadosPessoais> dadosPessoais = new ArrayList<>();
+	@OneToMany(mappedBy="id.casoDeUso")
+	private Set<DadosCasoDeUso> itens = new HashSet<>();
 	
 	@ManyToOne()
 	@JoinColumn(name = "cliente_id")
@@ -49,12 +47,11 @@ public class CasoDeUso {
 		
 	}
 	
-	public CasoDeUso(Integer id, String nome, String descricao, List<DadosPessoais> dadosPessoais) {
+	public CasoDeUso(Integer id, String nome, String descricao) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
-		this.dadosPessoais = dadosPessoais;
 	}
 	
 	public Set<DataLifeCycle> getLifecycles() {
@@ -96,15 +93,15 @@ public class CasoDeUso {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public List<DadosPessoais> getDadosPessoais() {
-		return dadosPessoais;
-	}
-  
-	public void setDadosPessoais(List<DadosPessoais> dadosPessoais) {
-		this.dadosPessoais = dadosPessoais;
-	}
 	
+	public Set<DadosCasoDeUso> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<DadosCasoDeUso> itens) {
+		this.itens = itens;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -113,16 +110,40 @@ public class CasoDeUso {
 		this.cliente = cliente;
 	}
 
-	public CasoDeUso(Integer id, String nome, String descricao, List<DadosPessoais> dadosPessoais, Cliente cliente,
+	public CasoDeUso(Integer id, String nome, String descricao, Cliente cliente,
 			Set<Integer> lifecycles, Boolean useConsent) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
-		this.dadosPessoais = dadosPessoais;
 		this.cliente = cliente;
 		this.lifecycles = lifecycles;
 		this.useConsent = useConsent;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CasoDeUso other = (CasoDeUso) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 	

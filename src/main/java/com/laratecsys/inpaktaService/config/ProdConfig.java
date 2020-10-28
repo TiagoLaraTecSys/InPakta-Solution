@@ -40,7 +40,7 @@ public class ProdConfig {
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
 
-		if (!"create".equals(strategy)) {
+		if ("create".equals(strategy)) {
 			Cliente teste = new Cliente(null, "Tiago", "de Lara Ribeiro", "tiagolararibeiro1998@gmail.com",
 					pe.encode("1234"));
 
