@@ -2,10 +2,10 @@ package com.laratecsys.inpaktaService.Enum;
 
 public enum DataLifeCycle {
 	
-	COLLECTION(1,"Collection"),
-	RETENTION(2, "Retention"),
-	PROCESSING(3, "Processing"),
-	TRANSFORMATION(4,"Transformation");
+	Coleta(1,"Coleta"),
+	Armazenamento(2, "Armazenamento"),
+	Processamento(3, "Processamento"),
+	Transferência(4,"Transferência");
 	
 	private int cod;
 	private String descricao;
