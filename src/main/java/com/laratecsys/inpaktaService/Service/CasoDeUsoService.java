@@ -66,7 +66,7 @@ public class CasoDeUsoService {
 		 
 		 for(DadosCasoDeUso x : casoDeUso.getItens()) {
 			 System.out.println(x.toString());
-			 x.setDadosPessoais(dadosPessoaisService.find(1));
+			 x.setDadosPessoais(dadosPessoaisService.find(x.getDadosPessoais().getId()));
 			 x.setCasoDeUso(casoDeUso);
 		 }
 		 
