@@ -59,7 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 			"/dbproperties/**",
 			
-			"/dataresult/**"
+			"/dataresult/**",
+			"/dadospessoais/**"
 
 	};
 	
