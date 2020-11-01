@@ -88,10 +88,22 @@ public class CasoDeUsoService {
 		newObj.setNome(obj.getNome());
 		newObj.setDescricao(obj.getDescricao());
 		newObj.setUseConsent(obj.getUseConsent());
-		for (DataLifeCycle i : obj.getLifecycles()) {
-			newObj.addLifeCycle(i);
+		
+		if(obj.getLifecycles().size() > newObj.getLifecycles().size()) {
+			for (DataLifeCycle i : obj.getLifecycles()) {
+				newObj.addLifeCycle(i);
+			}
+		} else {
+			for (DataLifeCycle i : newObj.getLifecycles()) {
+				
+				for(DataLifeCycle x: obj.getLifecycles()) {
+					if (x != i) {
+						newObj.getLifecycles().remove(i);
+					}
+				}
+				
+			}
 		}
-
 	}
 	
 	public void deletarCasoDeUso(Integer id) {
