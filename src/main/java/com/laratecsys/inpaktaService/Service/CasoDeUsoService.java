@@ -14,6 +14,7 @@ import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosCasoDeUso;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosPessoais;
+import com.laratecsys.inpaktaService.Enum.DataLifeCycle;
 import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DadosCasoDeUsoRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DadosPessoaisRepositories;
@@ -87,7 +88,10 @@ public class CasoDeUsoService {
 		newObj.setNome(obj.getNome());
 		newObj.setDescricao(obj.getDescricao());
 		newObj.setUseConsent(obj.getUseConsent());
-		newObj.getLifecycles().addAll(obj.getLifecycles());
+		for (DataLifeCycle i : obj.getLifecycles()) {
+			newObj.addLifeCycle(i);
+		}
+
 	}
 	
 	public void deletarCasoDeUso(Integer id) {
