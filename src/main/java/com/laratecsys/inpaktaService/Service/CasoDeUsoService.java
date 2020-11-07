@@ -1,7 +1,9 @@
 package com.laratecsys.inpaktaService.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosCasoDeUso;
-import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.DadosPessoais;
 import com.laratecsys.inpaktaService.Enum.DataLifeCycle;
 import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
 import com.laratecsys.inpaktaService.Repositorie.DadosCasoDeUsoRepositories;
@@ -66,7 +67,7 @@ public class CasoDeUsoService {
 		 casoDeUso = casoDeUsoRepositories.save(casoDeUso);
 		 
 		 for(DadosCasoDeUso x : casoDeUso.getItens()) {
-			 System.out.println(x.toString());
+			 //System.out.println(x.toString());
 			 x.setDadosPessoais(dadosPessoaisService.find(x.getDadosPessoais().getId()));
 			 x.setCasoDeUso(casoDeUso);
 		 }
@@ -79,31 +80,57 @@ public class CasoDeUsoService {
 		
 		CasoDeUso newCaso = find(casoDeUso.getId());
 		updateData(newCaso, casoDeUso);
-		return casoDeUsoRepositories.save(newCaso);
-		
+	
+		//dadosCasoDeUsoRepositories.deleteAll(newCaso.getItens());
+		return newCaso;
 	}
 	
 	public void updateData(CasoDeUso newObj, CasoDeUso obj) {
 		
+		newObj.setId(obj.getId());
 		newObj.setNome(obj.getNome());
 		newObj.setDescricao(obj.getDescricao());
 		newObj.setUseConsent(obj.getUseConsent());
+		
 		
 		if(obj.getLifecycles().size() > newObj.getLifecycles().size()) {
 			for (DataLifeCycle i : obj.getLifecycles()) {
 				newObj.addLifeCycle(i);
 			}
 		} else {
-			for (DataLifeCycle i : newObj.getLifecycles()) {
-				
-				for(DataLifeCycle x: obj.getLifecycles()) {
-					if (x != i) {
-						newObj.getLifecycles().remove(i);
-					}
-				}
-				
+			for (DataLifeCycle i : obj.getLifecycles()) {
+				newObj.getLifecycles().remove(i);
+				System.out.println(newObj.getLifecycles());
+				System.out.println(i.getDescricao());
 			}
 		}
+		
+		casoDeUsoRepositories.save(newObj);
+		//Para excluir dados pessoais se itens que vieram no objeto for menor que o que estiver salvo
+		if(obj.getItens().size()< newObj.getItens().size() || obj.getItens() == null) {
+			
+			Set<DadosCasoDeUso> pert = new HashSet<>();
+			pert = newObj.getItens();
+			for(DadosCasoDeUso x: obj.getItens()) {
+				pert.removeIf(n -> n.getDadosPessoais().getId()== x.getDadosPessoais().getId());
+			}
+			for(DadosCasoDeUso y: pert) {
+				y.setDadosPessoais(dadosPessoaisService.find(y.getDadosPessoais().getId()));
+				y.setCasoDeUso(newObj);
+				 dadosCasoDeUsoRepositories.delete(y);
+			}
+
+			
+		} else {
+			 for(DadosCasoDeUso x : obj.getItens()) {
+				 //System.out.println(x.toString());
+				 x.setDadosPessoais(dadosPessoaisService.find(x.getDadosPessoais().getId()));
+				 x.setCasoDeUso(obj);
+			 }
+			 
+			 dadosCasoDeUsoRepositories.saveAll(obj.getItens());
+		}
+
 	}
 	
 	public void deletarCasoDeUso(Integer id) {
