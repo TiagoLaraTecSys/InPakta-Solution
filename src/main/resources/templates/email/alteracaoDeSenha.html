@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Order Confirmation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style th:inline="css">
+	@font-face {
+		font-family: VisbyCF-Medium;
+		src: url('./visby/VisbyCF-Medium.otf') format('otf');
+		font-weight: bold;
+	}
+	 @font-face{
+
+        src: url('./visby/VisbyCF-Bold.otf') format('otf');
+
+        font-family: VisbyCF-Bold;
+
+        font-weight: bold;
+
+      }
+	body{
+		font-family: VisbyCF-Medium;
+	}
+	.principal{
+
+		flex-direction: column;
+		margin-left: auto;
+		margin-right: auto;
+		width: 600px;
+		border: 1px #2ff895 solid;
+		border-radius: 23px;
+		height: auto;
+		text-align: justify;
+		
+	}
+	.cabecalio{
+		width: 100%;
+		height: 100%;
+		border-top-left-radius: 23px;
+		border-top-right-radius: 23px;
+		background-color: #2ff895;
+		align-self: flex-start;
+		height: auto;
+		padding-bottom: 10px;
+		color: white;
+		
+		text-align: center;
+		display: flow-root;
+	}
+	h1{
+		text-align: center;
+		font-family: VisbyCF-Bold;
+		margin-top: 80px;
+		border: 1px #2ff895 solid;
+		
+	}
+	.descritivo{
+		margin-left: auto;
+		margin-right: auto;
+		width: 75%;
+	}
+	.rodape{
+		align-self: center;
+		text-align: center;
+		margin-top: 80px;
+		padding-bottom: 20px;
+	}
+</style>
+</head>
+<body>
+	<div th:class="@{principal}">
+		
+		<div class="cabecalio">
+		
+			<h2>Senha de Recuperação</h2>
+		</div>
+		<div class="descritivo">
+			<h3>Sr(a) <span th:text="${usuario.nome}"></span> Segue sua senha temporária! Não esqueça de altera-lá depois.</h3>
+		</div>
+		<div class="descritivo">
+			<h1 ><span th:text="${senha}"> </span></h1>
+		</div>
+		<div class="rodape">
+			<p>Atenciosamente!</p>
+			<img src="https://www.linkpicture.com/q/IconLetter.png" width="25%" height="25%">
+		</div>
+	</div>
+
+</body>
+</html>

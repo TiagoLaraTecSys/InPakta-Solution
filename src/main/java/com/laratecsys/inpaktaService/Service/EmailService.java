@@ -15,4 +15,6 @@ public interface EmailService {
 
 	void sendSubjectConfirmation(Subject updateSubject);
 	
+	void sendNewPasswordEmail(Cliente cliente, String senha);
+	
 }

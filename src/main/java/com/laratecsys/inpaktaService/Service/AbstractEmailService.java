@@ -27,6 +27,41 @@ public abstract class AbstractEmailService implements EmailService {
 	private String sender;
 
 	@Override
+	public void sendNewPasswordEmail(Cliente cliente, String senha) {
+		MimeMessage mm;
+		
+		try {			
+			mm = prepareNewPassawordEmail(cliente,senha);
+			sendHtmlEmail(mm);
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	protected String htmlFromTemplateAlterarSenha(Cliente cliente, String senha) {
+		Context context = new Context();
+		context.setVariable("senha", senha);
+		context.setVariable("usuario", cliente);
+
+		return templateEngine.process("email/alteracaoDeSenha", context);
+	}
+	
+	protected MimeMessage prepareNewPassawordEmail(Cliente cliente, String senha) throws MessagingException {
+
+		MimeMessage newMM = javaMailSender.createMimeMessage();
+		MimeMessageHelper newMMH = new MimeMessageHelper(newMM, true);
+
+		newMMH.setTo(cliente.getEmail());
+		newMMH.setFrom(sender);
+		newMMH.setSubject("Recuperação de senha");
+		newMMH.setSentDate(new Date(System.currentTimeMillis()));
+
+		newMMH.setText(htmlFromTemplateAlterarSenha(cliente, senha), true);
+
+		return newMM;
+	}
+	@Override
 	public void sendInsertConfirmationHtmlEmail(Cliente cliente) {
 
 		MimeMessage mm;
@@ -38,17 +73,17 @@ public abstract class AbstractEmailService implements EmailService {
 		}
 
 	}
-	
+
 	@Override
 	public void sendSubjectCodeVerification(Subject subject) {
-		
+
 		MimeMessage mm;
-		
+
 		try {
 			mm = prepareMimeMessage(subject);
 			sendHtmlEmail(mm);
-			
-		}catch (MessagingException e){
+
+		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -57,11 +92,11 @@ public abstract class AbstractEmailService implements EmailService {
 	public void sendSubjectConfirmation(Subject updatedSubject) {
 
 		MimeMessage mm;
-		
+
 		try {
 			mm = prepareMimeMessageConfirmSubject(updatedSubject);
 			sendHtmlEmail(mm);
-		}catch (MessagingException e) {
+		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -72,7 +107,7 @@ public abstract class AbstractEmailService implements EmailService {
 		return templateEngine.process("email/confirmacaoEmail", context);
 
 	}
-	
+
 	protected String htmlFromTemplateSubject(Subject obj) {
 		Context context = new Context();
 		context.setVariable("subject", obj);
@@ -80,13 +115,12 @@ public abstract class AbstractEmailService implements EmailService {
 
 	}
 
-	protected String htmlFromTemplateConfirmSubject(Subject update){
+	protected String htmlFromTemplateConfirmSubject(Subject update) {
 		Context context = new Context();
 		context.setVariable("subject", update);
 		context.setVariable("tipo", update.getSubjectTipo().getDescricao());
 		return templateEngine.process("email/codigoValidadorConfirmacao", context);
 	}
-
 
 	protected MimeMessage prepareMimeMessage(Cliente obj) throws MessagingException {
 
@@ -103,7 +137,7 @@ public abstract class AbstractEmailService implements EmailService {
 		return newMM;
 
 	}
-	
+
 	protected MimeMessage prepareMimeMessage(Subject obj) throws MessagingException {
 
 		MimeMessage newMM = javaMailSender.createMimeMessage();
@@ -111,7 +145,7 @@ public abstract class AbstractEmailService implements EmailService {
 
 		newMMH.setTo(obj.getEmail());
 		newMMH.setFrom(sender);
-		
+
 		newMMH.setSubject("CÓDIGO DE VERIFICAÇÃO");
 		newMMH.setSentDate(new Date(System.currentTimeMillis()));
 
@@ -121,7 +155,7 @@ public abstract class AbstractEmailService implements EmailService {
 
 	}
 
-	protected MimeMessage prepareMimeMessageConfirmSubject(Subject updated) throws MessagingException{
+	protected MimeMessage prepareMimeMessageConfirmSubject(Subject updated) throws MessagingException {
 
 		MimeMessage newMM = javaMailSender.createMimeMessage();
 		MimeMessageHelper newMMH = new MimeMessageHelper(newMM, true);
