@@ -12,6 +12,11 @@ public class SubjectDTO {
 	
 	private String subDominio;
 
+	private String nome;
+	private String sobNome;
+	private String cpf;
+	private String consideracoes;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -58,6 +63,38 @@ public class SubjectDTO {
 
 	public void setSubDominio(String subDominio) {
 		this.subDominio = subDominio;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSobNome() {
+		return sobNome;
+	}
+
+	public void setSobNome(String sobNome) {
+		this.sobNome = sobNome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getConsideracoes() {
+		return consideracoes;
+	}
+
+	public void setConsideracoes(String consideracoes) {
+		this.consideracoes = consideracoes;
 	}
 	
 	

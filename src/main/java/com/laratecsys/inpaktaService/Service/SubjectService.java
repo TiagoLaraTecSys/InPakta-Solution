@@ -44,6 +44,11 @@ public class SubjectService {
 		newSubject.setValidado(false);
 		newSubject.setSubjectTipo(TipoSubject.toEnum(subject.getTipo()));
 		
+		newSubject.setNome(subject.getNome());
+		newSubject.setSobNome(subject.getSobNome());
+		newSubject.setCpf(subject.getCpf());
+		newSubject.setConsideracoes(subject.getConsideracoes());
+		
 		newSubject.setCodigoValidacao(ValidatorCode.generateCode());
 		subjectRepositories.save(newSubject);
 		

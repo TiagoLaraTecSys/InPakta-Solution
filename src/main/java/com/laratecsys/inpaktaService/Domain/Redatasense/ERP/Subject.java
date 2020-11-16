@@ -23,6 +23,12 @@ public class Subject implements Serializable{
 	private Integer id;
 	private Date data;
 	private String email;
+	
+	private String nome;
+	private String sobNome;
+	private String cpf;
+	private String consideracoes;
+	
 	private String codigoValidacao;
 	private Boolean validado;
 	private Boolean feito;
@@ -110,6 +116,38 @@ public class Subject implements Serializable{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSobNome() {
+		return sobNome;
+	}
+
+	public void setSobNome(String sobNome) {
+		this.sobNome = sobNome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getConsideracoes() {
+		return consideracoes;
+	}
+
+	public void setConsideracoes(String consideracoes) {
+		this.consideracoes = consideracoes;
 	}
 
 	@Override
