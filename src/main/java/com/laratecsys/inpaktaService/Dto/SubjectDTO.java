@@ -1,5 +1,11 @@
 package com.laratecsys.inpaktaService.Dto;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasosDeUsoSubject;
+
 public class SubjectDTO {
 
 	
@@ -16,6 +22,8 @@ public class SubjectDTO {
 	private String sobNome;
 	private String cpf;
 	private String consideracoes;
+	
+	private Set<CasosDeUsoSubject> casos = new HashSet<>();
 	
 	public String getEmail() {
 		return email;
@@ -96,8 +104,15 @@ public class SubjectDTO {
 	public void setConsideracoes(String consideracoes) {
 		this.consideracoes = consideracoes;
 	}
-	
-	
+
+	public Set<CasosDeUsoSubject> getCasos() {
+		return casos;
+	}
+
+	public void setCasos(Set<CasosDeUsoSubject> casos) {
+		this.casos = casos;
+	}
+
 	
 	
 }

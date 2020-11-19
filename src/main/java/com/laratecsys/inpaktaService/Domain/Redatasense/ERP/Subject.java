@@ -1,7 +1,11 @@
 package com.laratecsys.inpaktaService.Domain.Redatasense.ERP;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laratecsys.inpaktaService.Domain.Cliente;
@@ -33,6 +38,10 @@ public class Subject implements Serializable{
 	private Boolean validado;
 	private Boolean feito;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="id.subject")
+	private Set<CasosDeUsoSubject> casos = new HashSet<>();
+	
 	@ManyToOne()
 	@JoinColumn(name = "cliente_id")
 	@JsonIgnore
@@ -44,6 +53,15 @@ public class Subject implements Serializable{
 		
 	}
 	
+	public List<CasoDeUso> getCasoDeUso(){
+		List<CasoDeUso> lista = new ArrayList<>();
+		
+		for (CasosDeUsoSubject x : casos) {
+			lista.add(x.getCasoDeUso());
+		}
+		return lista;
+	}
+	
 	public TipoSubject getSubjectTipo() {
 		return TipoSubject.toEnum(subjectTipo);
 	}
@@ -51,7 +69,15 @@ public class Subject implements Serializable{
 	public void setSubjectTipo(TipoSubject tipoSubject) {
 		this.subjectTipo = tipoSubject.getCod();
 	}
-	
+		
+	public Set<CasosDeUsoSubject> getCasos() {
+		return casos;
+	}
+
+	public void setCasos(Set<CasosDeUsoSubject> casos) {
+		this.casos = casos;
+	}
+
 	public Subject(Integer id, Date data, String email, String codigoValidacao, Boolean validado) {
 		super();
 		this.id = id;

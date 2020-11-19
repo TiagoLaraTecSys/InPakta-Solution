@@ -10,9 +10,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.laratecsys.inpaktaService.Domain.Cliente;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasoDeUso;
+import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasosDeUsoSubject;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.Subject;
 import com.laratecsys.inpaktaService.Dto.SubjectDTO;
 import com.laratecsys.inpaktaService.Enum.TipoSubject;
+import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
+import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoSubjectRepositories;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Repositorie.SubjectRepositories;
 import com.laratecsys.inpaktaService.Security.UserSS;
@@ -26,6 +30,12 @@ public class SubjectService {
 	@Autowired
 	private SubjectRepositories subjectRepositories;
 		
+	@Autowired
+	private CasoDeUsoSubjectRepositories casoDeUsoSubjectRepositories;
+	
+	@Autowired
+	private CasoDeUsoService casoDeUsoService;
+	
 	@Autowired
 	private ClienteRepositories clienteRepositories;
 	
@@ -43,14 +53,24 @@ public class SubjectService {
 		newSubject.setFeito(false);
 		newSubject.setValidado(false);
 		newSubject.setSubjectTipo(TipoSubject.toEnum(subject.getTipo()));
-		
+		newSubject.setCasos(subject.getCasos());
 		newSubject.setNome(subject.getNome());
 		newSubject.setSobNome(subject.getSobNome());
 		newSubject.setCpf(subject.getCpf());
 		newSubject.setConsideracoes(subject.getConsideracoes());
 		
 		newSubject.setCodigoValidacao(ValidatorCode.generateCode());
-		subjectRepositories.save(newSubject);
+		newSubject = subjectRepositories.save(newSubject);
+		
+		for(CasosDeUsoSubject x: newSubject.getCasos()) {
+			System.out.println(x.getCasoDeUso().getId());
+			System.out.println(x.getConsentimento());
+			x.setCasoDeUso(new CasoDeUso(x.getCasoDeUso().getId(), x.getCasoDeUso().getNome(), x.getCasoDeUso().getDescricao()));
+			x.setConsentimento(x.getConsentimento());
+			x.setSubject(newSubject);
+		}
+		
+		casoDeUsoSubjectRepositories.saveAll(newSubject.getCasos());
 		
 		emailService.sendSubjectCodeVerification(newSubject);
 		
@@ -74,7 +94,7 @@ public class SubjectService {
 
 	public List<Subject> listarSubject(String subDominio){
 			
-		List<Subject> returned = clienteRepositories.findAllBySubDominio(subDominio);	
+		List<Subject> returned = subjectRepositories.findAll();
 		return returned;
 	
 	}

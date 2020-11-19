@@ -1,6 +1,8 @@
 package com.laratecsys.inpaktaService.Domain.Redatasense.ERP;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,10 @@ public class CasoDeUso {
 	@OneToMany(mappedBy="id.casoDeUso")
 	private Set<DadosCasoDeUso> itens = new HashSet<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="id.casoDeUso")
+	private Set<CasosDeUsoSubject> casos = new HashSet<>();
+	
 	@ManyToOne()
 	@JoinColumn(name = "cliente_id")
 	@JsonIgnore
@@ -53,7 +59,7 @@ public class CasoDeUso {
 		this.nome = nome;
 		this.descricao = descricao;
 	}
-	
+		
 	public Set<DataLifeCycle> getLifecycles() {
 		return lifecycles.stream().map(x -> DataLifeCycle.toEnum(x)).collect(Collectors.toSet());
 	}
@@ -100,6 +106,16 @@ public class CasoDeUso {
 
 	public void setItens(Set<DadosCasoDeUso> itens) {
 		this.itens = itens;
+	}
+	
+	
+
+	public Set<CasosDeUsoSubject> getCasos() {
+		return casos;
+	}
+
+	public void setCasos(Set<CasosDeUsoSubject> casos) {
+		this.casos = casos;
 	}
 
 	public Cliente getCliente() {
