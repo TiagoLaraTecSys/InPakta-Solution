@@ -2,6 +2,7 @@ package com.laratecsys.inpaktaService.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,6 @@ import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.CasosDeUsoSubject;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.Subject;
 import com.laratecsys.inpaktaService.Dto.SubjectDTO;
 import com.laratecsys.inpaktaService.Enum.TipoSubject;
-import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoRepositories;
 import com.laratecsys.inpaktaService.Repositorie.CasoDeUsoSubjectRepositories;
 import com.laratecsys.inpaktaService.Repositorie.ClienteRepositories;
 import com.laratecsys.inpaktaService.Repositorie.SubjectRepositories;
@@ -42,6 +42,15 @@ public class SubjectService {
 	@Autowired
 	private EmailService emailService;
 	
+	public Subject find(Integer id) {
+		
+		Optional<Subject> obj = subjectRepositories.findById(id);
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado. ID:" + id + ", Tipo:" + Subject.class.getName()));
+		
+	}
+	
 	public Subject inserirSubject(SubjectDTO subject) {
 			
 		Subject newSubject = new Subject();
@@ -62,22 +71,27 @@ public class SubjectService {
 		newSubject.setCodigoValidacao(ValidatorCode.generateCode());
 		newSubject = subjectRepositories.save(newSubject);
 		
-		for(CasosDeUsoSubject x: newSubject.getCasos()) {
-			System.out.println(x.getCasoDeUso().getId());
-			System.out.println(x.getConsentimento());
-			x.setCasoDeUso(new CasoDeUso(x.getCasoDeUso().getId(), x.getCasoDeUso().getNome(), x.getCasoDeUso().getDescricao()));
-			x.setConsentimento(x.getConsentimento());
-			x.setSubject(newSubject);
-		}
-		
-		casoDeUsoSubjectRepositories.saveAll(newSubject.getCasos());
-		
 		emailService.sendSubjectCodeVerification(newSubject);
 		
 		return newSubject;
 	}
 	
-	
+	public void inserindoCasosSubject(SubjectDTO newObj,Integer id) {
+		
+		Subject obj = find(id);
+		System.out.println(id);
+		obj.setCasos(newObj.getCasos());
+
+		for(CasosDeUsoSubject x: obj.getCasos()) {
+			System.out.println(x.getCasoDeUso().getId());
+			System.out.println(x.getConsentimento());
+			x.setCasoDeUso(new CasoDeUso(x.getCasoDeUso().getId(), x.getCasoDeUso().getNome(), x.getCasoDeUso().getDescricao()));
+			x.setConsentimento(x.getConsentimento());
+			x.setSubject(obj);
+		}
+		casoDeUsoSubjectRepositories.saveAll(obj.getCasos());
+	}
+
 	public Subject validateCode(String validatecode) {
 		
 	

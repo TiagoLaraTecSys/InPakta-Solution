@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.laratecsys.inpaktaService.Domain.Cliente;
 import com.laratecsys.inpaktaService.Domain.Redatasense.ERP.Subject;
+import com.laratecsys.inpaktaService.Dto.ClienteUpdateDto;
 import com.laratecsys.inpaktaService.Dto.SubjectDTO;
 import com.laratecsys.inpaktaService.Service.SubjectService;
 
@@ -38,7 +41,7 @@ public class SubjectResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(subject.getId()).toUri();
 		
-		return ResponseEntity.ok().body(subject.getCodigoValidacao());
+		return ResponseEntity.created(uri).body(subject.getCodigoValidacao());
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
@@ -71,4 +74,12 @@ public class SubjectResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value="Atualização de subject")
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody SubjectDTO objDTO, @PathVariable Integer id){
+
+		service.inserindoCasosSubject(objDTO,id);
+		
+		return ResponseEntity.noContent().build();
+	}
 }
